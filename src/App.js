@@ -1,12 +1,9 @@
-import { TabComponent } from "./App.style";
-import Tab from "./components/topTab";
+import Playground from "./views/playground";
+
 function App() {
   return (
     <div className="App">
-      <TabComponent>
-        <Tab />
-      </TabComponent>
-      <h1>Hello world</h1>
+      <Playground />
     </div>
   );
 }
