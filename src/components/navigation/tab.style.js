@@ -1,11 +1,19 @@
 import styled from "styled-components";
 
-
 export const TabWrapper = styled.div`
-  min-width: 200px;
+  width: 100px;
+  margin-top: 5px;
+  height: 89vh;
   padding: 5px;
   border-radius: 10px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+`;
+
+export const BlocksTabWrapper = styled(TabWrapper)`
+  width: 200px;
+  box-shadow: none;
+  border: 1px solid #e3e9ed;
+  border-left: none;
 `;
 
 export const TabLists = styled.ul`
@@ -15,21 +23,27 @@ export const TabLists = styled.ul`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: -5px;
+  flex-direction: column;
+  margin-top: -10px;
 `;
 
 export const TabList = styled.li`
   cursor: pointer;
-  width: 25px;
-  padding: 8px;
-  background: #e9ecef;
+  width: 50px;
+  height: 50px;
+  padding: 15px;
   display: flex;
   align-items: center;
-  margin-left: 5px;
+  margin-top: 50px;
   justify-content: center;
-  height: 25px;
+  flex-direction: column;
   border-radius: 5px;
   &:hover {
     background: #ced4da;
+  }
+  & > span {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: bold;
   }
 `;
