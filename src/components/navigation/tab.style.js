@@ -2,10 +2,8 @@ import styled from "styled-components";
 
 export const TabWrapper = styled.div`
   width: 100px;
-  margin-top: 5px;
-  height: 89vh;
+  height: 100%;
   padding: 5px;
-  border-radius: 10px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 `;
 
@@ -38,6 +36,7 @@ export const TabList = styled.li`
   justify-content: center;
   flex-direction: column;
   border-radius: 5px;
+  background: ${(props) => props.active && "#ced4da"};
   &:hover {
     background: #ced4da;
   }

@@ -1,83 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BlocklyWorkspace } from "react-blockly";
 import Blockly from "blockly";
 import "../components/customBlocks/defaultBlocks";
 import Tab from "../components/navigation/tab";
 import { PlaygroundContainer, PlaygroundWrapper } from "./views.style";
+import { defaultToolbox } from "../components/toolboxs/default";
 
 function Playground() {
   // eslint-disable-next-line no-unused-vars
   const [xml, setXml] = useState("");
   // eslint-disable-next-line no-unused-vars
   const [javascriptCode, setJavascriptCode] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [toolBox, setToolbox] = useState(defaultToolbox);
 
   const initialXml =
-    '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="text" x="70" y="30"><field name="TEXT"></field></block></xml>';
-  const toolboxCategories = {
-    kind: "categoryToolbox",
-    contents: [
-      {
-        kind: "category",
-        name: "Logic",
-        colour: "#5C81A6",
-        contents: [
-          {
-            kind: "block",
-            type: "controls_if",
-          },
-          {
-            kind: "block",
-            type: "logic_compare",
-          },
-        ],
-      },
-      {
-        kind: "category",
-        name: "Math",
-        colour: "#5CA65C",
-        contents: [
-          {
-            kind: "block",
-            type: "math_round",
-          },
-          {
-            kind: "block",
-            type: "math_number",
-          },
-        ],
-      },
-      {
-        kind: "category",
-        cssConfig: {
-          container: "yourClassName",
-        },
-        name: "Custom",
-        colour: "#5CA699",
-        contents: [
-          {
-            kind: "block",
-            type: "new_boundary_function",
-          },
-          {
-            kind: "block",
-            type: "return",
-          },
-        ],
-      },
-    ],
-  };
+    '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="lists_create_with" id="825Sq+Q{pyvypJSj4g~`" x="80" y="-49"><mutation items="3"></mutation></block></xml>';
   function workspaceDidChange(workspace) {
     console.log(workspace);
     const code = Blockly.JavaScript.workspaceToCode(workspace);
     setJavascriptCode(code);
   }
-
+  useEffect(() => {
+    console.log(toolBox);
+  }, [toolBox]);
   return (
     <PlaygroundWrapper>
-      <Tab />
+      <Tab setToolbox={setToolbox} />
       <PlaygroundContainer>
         <BlocklyWorkspace
-          toolboxConfiguration={toolboxCategories}
+          toolboxConfiguration={toolBox}
           initialXml={initialXml}
           className="fill-height"
           workspaceConfiguration={{
