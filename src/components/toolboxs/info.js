@@ -4,27 +4,39 @@ export const infoToolbox = {
   contents: [
     {
       kind: "category",
-      name: "Schema",
+      name: "Schemas",
       colour: "#5C81A6",
       contents: [
         {
           kind: "block",
-          type: "controls_if",
+          type: "info_schema",
         },
         {
           kind: "block",
-          type: "logic_compare",
+          type: "title",
+        },
+        {
+          kind: "block",
+          type: "version",
+        },
+        {
+          kind: "block",
+          type: "description",
+        },
+        {
+          kind: "block",
+          type: "license",
         },
       ],
     },
     {
       kind: "category",
-      name: "Blocks",
+      name: "Fields",
       colour: "#5CA65C",
       contents: [
         {
           kind: "block",
-          type: "math_round",
+          type: "text_input",
         },
         {
           kind: "block",
@@ -37,16 +49,16 @@ export const infoToolbox = {
       cssConfig: {
         container: "yourClassName",
       },
-      name: "Custom",
+      name: "Optionals",
       colour: "#5CA699",
       contents: [
         {
           kind: "block",
-          type: "new_boundary_function",
+          type: "name",
         },
         {
           kind: "block",
-          type: "return",
+          type: "url",
         },
       ],
     },

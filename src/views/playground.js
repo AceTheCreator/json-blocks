@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { BlocklyWorkspace } from "react-blockly";
-import Blockly from "blockly";
-import "../components/customBlocks/defaultBlocks";
+// import Blockly from "blockly";
+import "../components/blocks/schemas";
+import "../components/blocks/fields";
+import "../components/blocks/optionals";
 import Tab from "../components/navigation/tab";
 import { PlaygroundContainer, PlaygroundWrapper } from "./views.style";
 import { defaultToolbox } from "../components/toolboxs/default";
@@ -14,23 +16,16 @@ function Playground() {
   // eslint-disable-next-line no-unused-vars
   const [toolBox, setToolbox] = useState(defaultToolbox);
 
-  const initialXml =
-    '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="lists_create_with" id="825Sq+Q{pyvypJSj4g~`" x="80" y="-49"><mutation items="3"></mutation></block></xml>';
   function workspaceDidChange(workspace) {
     console.log(workspace);
-    const code = Blockly.JavaScript.workspaceToCode(workspace);
-    setJavascriptCode(code);
   }
-  useEffect(() => {
-    console.log(toolBox);
-  }, [toolBox]);
+  useEffect(() => {}, [toolBox]);
   return (
     <PlaygroundWrapper>
       <Tab setToolbox={setToolbox} />
       <PlaygroundContainer>
         <BlocklyWorkspace
           toolboxConfiguration={toolBox}
-          initialXml={initialXml}
           className="fill-height"
           workspaceConfiguration={{
             zoom: {

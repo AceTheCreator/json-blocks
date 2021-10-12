@@ -14,7 +14,6 @@ function Tab({ setToolbox }) {
     } else {
       setToolbox(defaultToolbox);
     }
-    console.log(active);
   }, [active]);
   return (
     <TabWrapper>
