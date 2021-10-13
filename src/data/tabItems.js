@@ -1,19 +1,19 @@
-import info from "../assets/info.png";
-import components from "../assets/component.png";
-import channels from "../assets/channel.png";
-
 const items = [
   {
     name: "Info",
-    icon: info,
+    icon: <span className="fi fi-sr-info" />,
+  },
+  {
+    name: "Servers",
+    icon: <span className="fi fi-sr-cloud-share" />,
   },
   {
     name: "Components",
-    icon: components,
+    icon: <span className="fi fi-sr-apps-add" />,
   },
   {
     name: "Channels",
-    icon: channels,
+    icon: <span className="fi fi-sr-chart-network" />,
   },
 ];
 

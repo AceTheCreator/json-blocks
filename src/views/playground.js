@@ -4,17 +4,15 @@ import { BlocklyWorkspace } from "react-blockly";
 import "../components/blocks/schemas";
 import "../components/blocks/fields";
 import "../components/blocks/optionals";
-import Tab from "../components/navigation/tab";
 import { PlaygroundContainer, PlaygroundWrapper } from "./views.style";
-import { defaultToolbox } from "../components/toolboxs/default";
 
-function Playground() {
+// eslint-disable-next-line react/prop-types
+function Playground({ toolBox }) {
   // eslint-disable-next-line no-unused-vars
   const [xml, setXml] = useState("");
   // eslint-disable-next-line no-unused-vars
   const [javascriptCode, setJavascriptCode] = useState("");
   // eslint-disable-next-line no-unused-vars
-  const [toolBox, setToolbox] = useState(defaultToolbox);
 
   function workspaceDidChange(workspace) {
     console.log(workspace);
@@ -22,7 +20,6 @@ function Playground() {
   useEffect(() => {}, [toolBox]);
   return (
     <PlaygroundWrapper>
-      <Tab setToolbox={setToolbox} />
       <PlaygroundContainer>
         <BlocklyWorkspace
           toolboxConfiguration={toolBox}
