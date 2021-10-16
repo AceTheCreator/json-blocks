@@ -5642,6 +5642,11 @@ globby@^6.1.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
+google-closure-library@^20210808.0.0:
+  version "20210808.0.0"
+  resolved "https://registry.yarnpkg.com/google-closure-library/-/google-closure-library-20210808.0.0.tgz#cc30efc13b56ddb99b44160c171adb8bdd0c884b"
+  integrity sha512-cAXXRjl81ccXpDrC+gjMnQ/1wi8Gfp93Wm3DvIdIJexgTqfosS+Y6N9L/nmhQOSLglbAYbTfIotMlbScE+Qpww==
+
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.4:
   version "4.2.8"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.8.tgz#e412b8d33f5e006593cbd3cee6df9f2cebbe802a"

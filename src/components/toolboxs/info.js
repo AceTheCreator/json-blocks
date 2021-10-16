@@ -27,6 +27,10 @@ export const infoToolbox = {
           kind: "block",
           type: "license",
         },
+        {
+          kind: "block",
+          type: "return",
+        },
       ],
     },
     {
