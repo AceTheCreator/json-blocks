@@ -27,10 +27,6 @@ export const infoToolbox = {
           kind: "block",
           type: "license",
         },
-        {
-          kind: "block",
-          type: "return",
-        },
       ],
     },
     {
@@ -63,6 +59,10 @@ export const infoToolbox = {
         {
           kind: "block",
           type: "url",
+        },
+        {
+          kind: "block",
+          type: "string_length",
         },
       ],
     },

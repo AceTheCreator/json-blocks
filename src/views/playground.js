@@ -6,10 +6,10 @@ import "blockly/javascript_compressed";
 
 // import Blockly from "blockly";
 import "../components/blocks/schemas";
+import "../components/blocks/generators";
 import "../components/blocks/fields";
 import "../components/blocks/optionals";
 import { PlaygroundContainer, PlaygroundWrapper } from "./views.style";
-import { infoSchema } from "../common/interpreter";
 
 // eslint-disable-next-line react/prop-types
 function Playground({ toolBox }) {
@@ -22,8 +22,6 @@ function Playground({ toolBox }) {
   function workspaceDidChange(workspace) {
     const code = Blockly.JavaScript.workspaceToCode(workspace);
     setJavascriptCode(code);
-    console.log(code);
-    infoSchema(workspace);
   }
   useEffect(() => {}, [toolBox]);
   return (
