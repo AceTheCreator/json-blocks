@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import Blockly from "blockly";
 
-Blockly.Blocks.info_schema = {
+Blockly.Blocks.info = {
   init() {
     this.appendDummyInput().appendField("Info");
     this.appendStatementInput("Info").setCheck(null);

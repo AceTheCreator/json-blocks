@@ -9,7 +9,7 @@ export const infoToolbox = {
       contents: [
         {
           kind: "block",
-          type: "info_schema",
+          type: "info",
         },
         {
           kind: "block",
