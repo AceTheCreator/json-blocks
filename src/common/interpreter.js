@@ -36,13 +36,15 @@ function objectCreator(currentChildBlock, block, child) {
       }
     }
   } else {
-    for (let i = 0; i < currentChildBlock.length; i++) {
-      if (currentChildBlock[i].blockType !== "field") {
-        const holder = currentChildBlock[i];
-        holder.parentBlock_ = block;
-        currentChildBlock.splice(i, 1);
-        block.childBlocks_.push(holder);
-        block.counter += 1;
+    if (block.childBlocks_ && Object.keys(block.childBlocks_).length > 0) {
+      for (let i = 0; i < currentChildBlock.length; i++) {
+        if (currentChildBlock[i].blockType !== "field") {
+          const holder = currentChildBlock[i];
+          holder.parentBlock_ = block;
+          currentChildBlock.splice(i, 1);
+          block.childBlocks_.push(holder);
+          block.counter += 1;
+        }
       }
     }
     validateSchema(block);

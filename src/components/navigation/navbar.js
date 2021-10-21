@@ -11,6 +11,7 @@ import {
 } from "./navbar.style";
 import items from "../../data/tabItems";
 import { infoToolbox } from "../toolboxs/info";
+import { serverToolbox } from "../toolboxs/servers";
 import { defaultToolbox } from "../toolboxs/default";
 
 function Navbar({ setToolbox }) {
@@ -18,6 +19,8 @@ function Navbar({ setToolbox }) {
   useEffect(() => {
     if (active === "Info") {
       setToolbox(infoToolbox);
+    } else if (active === "Servers") {
+      setToolbox(serverToolbox);
     } else {
       setToolbox(defaultToolbox);
     }

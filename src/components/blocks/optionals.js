@@ -2,17 +2,17 @@ import Blockly from "blockly";
 
 Blockly.Blocks.name = {
   init() {
-    this.appendValueInput("NAME").setCheck("String").appendField("name");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.appendValueInput("VALUE").setCheck("String").appendField("Name");
+    this.setPreviousStatement(true, "Name");
+    this.setNextStatement(true, "Name");
   },
 };
 
 Blockly.Blocks.url = {
   init() {
-    this.appendValueInput("URL").setCheck("String").appendField("url");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.appendValueInput("VALUE").setCheck("String").appendField("Url");
+    this.setPreviousStatement(true, "Url");
+    this.setNextStatement(true, "Url");
   },
 };
 
@@ -27,7 +27,6 @@ Blockly.Blocks.string_length = {
 };
 
 Blockly.JavaScript.string_length = function (block) {
-  console.log(block);
   // String or array length.
   const argument0 =
     Blockly.JavaScript.valueToCode(

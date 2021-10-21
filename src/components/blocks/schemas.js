@@ -10,8 +10,8 @@ Blockly.Blocks.info = {
 
 Blockly.Blocks.license = {
   init() {
-    this.appendValueInput("NAME").appendField("license");
-    this.appendStatementInput("Info").setCheck(["name", "url"]);
+    this.appendDummyInput().appendField("license");
+    this.appendStatementInput("Info").setCheck(["Name", "Url"]);
     this.setPreviousStatement(true, null);
   },
 };
@@ -37,5 +37,28 @@ Blockly.Blocks.version = {
     this.appendValueInput("VALUE").setCheck("Number").appendField("version");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
+  },
+};
+
+Blockly.Blocks.append_mouse = {
+  init() {
+    this.appendDummyInput().appendField("Mouse");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+  },
+};
+
+Blockly.Blocks.append_dog = {
+  init() {
+    this.appendDummyInput().appendField("Dog");
+    this.setPreviousStatement(true, "Dog");
+    this.setNextStatement(true, "Dog");
+  },
+};
+
+Blockly.Blocks.rodent_list = {
+  init() {
+    this.appendDummyInput().appendField("Rodents");
+    this.appendStatementInput("RODENTS").setCheck(["Mouse", "Rat"]);
   },
 };

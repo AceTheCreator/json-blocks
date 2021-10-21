@@ -20,6 +20,7 @@ Blockly.JavaScript.license = function (block) {
   blockFormatter(block);
   block.check = ["name", "url"];
   block.blockType = "object";
+  block.needsChildren = true;
   if (!block.counter) {
     block.counter = 0;
   }
@@ -46,5 +47,15 @@ Blockly.JavaScript.url = function (block) {
 
 Blockly.JavaScript.math_number = function (block) {
   block.blockType = "field";
+  return null;
+};
+
+Blockly.JavaScript.append_mouse = function (block) {
+  return null;
+};
+Blockly.JavaScript.rodent_list = function (block) {
+  return null;
+};
+Blockly.JavaScript.append_dog = function (block) {
   return null;
 };

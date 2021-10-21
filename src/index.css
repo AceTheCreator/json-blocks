@@ -40,3 +40,15 @@ code {
   background-color: white !important;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 };
+.blocklyFlyout{
+  display: block !important;
+  position: absolute !important;
+  z-index: 20 !important;
+  transform: translate(22px, 0px) !important;
+  width: 134.877 !important;
+  height: 659 !important;
+}
+.blocklyFlyoutLabelText{
+  font-weight: bold !important;
+  margin-top: 60px !important;
+}
