@@ -90,6 +90,10 @@ function blockIterator(block, hold) {
         } else {
           hold[blocks[i].type] = null;
         }
+      } else if (blocks[i].isCustom) {
+        hold[blocks[i].customText] = {};
+        const newHold = hold[blocks[i].customText];
+        blockIterator(blocks[i], newHold);
       } else {
         hold[blocks[i].type] = {};
         const newHold = hold[blocks[i].type];

@@ -13,6 +13,7 @@ import items from "../../data/tabItems";
 import { infoToolbox } from "../toolboxs/info";
 import { serverToolbox } from "../toolboxs/servers";
 import { defaultToolbox } from "../toolboxs/default";
+import { componentToolbox } from "../toolboxs/components";
 
 function Navbar({ setToolbox }) {
   const [active, setActive] = useState(null);
@@ -21,6 +22,8 @@ function Navbar({ setToolbox }) {
       setToolbox(infoToolbox);
     } else if (active === "Servers") {
       setToolbox(serverToolbox);
+    } else if (active === "Components") {
+      setToolbox(componentToolbox);
     } else {
       setToolbox(defaultToolbox);
     }

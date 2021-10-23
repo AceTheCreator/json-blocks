@@ -7,8 +7,10 @@ import Blockly from "blockly";
 import "blockly/javascript_compressed";
 import "../components/blocks/infoSchemas";
 import "../components/blocks/serverSchema";
+import "../components/blocks/componentSchema";
 import "../common/infoGenerators";
 import "../common/serverGenerator";
+import "../common/componentGenerator";
 import "../components/blocks/fields";
 import "../components/blocks/optionals";
 import { PlaygroundContainer, PlaygroundWrapper } from "./views.style";
@@ -28,7 +30,11 @@ function Playground({ toolBox }) {
     // eslint-disable-next-line no-restricted-globals
     function onClick(event) {
       const selectedBlock = workspace.getBlockById(event.blockId);
-      if (selectedBlock && selectedBlock.needsChildren) {
+      if (selectedBlock && selectedBlock.isCustom) {
+        selectedBlock.customText =
+          selectedBlock.inputList[0].fieldRow[0].value_;
+      }
+      if (selectedBlock && selectedBlock.blockType === "object") {
         toolBoxUpdater(workspace, selectedBlock);
       } else {
         workspace.updateToolbox(toolBox);

@@ -5,6 +5,7 @@ import {
   variables,
   port,
 } from "../components/toolboxs/serverContent";
+import { messageContent } from "../components/toolboxs/componentContent";
 
 export default function toolBoxUpdater(workspace, block) {
   let content;
@@ -19,6 +20,9 @@ export default function toolBoxUpdater(workspace, block) {
   }
   if (block.type === "port") {
     content = port;
+  }
+  if (block.type === "customBlock" && block.loc === "message") {
+    content = messageContent;
   }
   workspace.updateToolbox(content);
 }
