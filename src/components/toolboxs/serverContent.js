@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-export const serverToolbox = {
+export const prodContent = {
   contents: [
     {
       kind: "label",
@@ -7,28 +7,36 @@ export const serverToolbox = {
     },
     {
       kind: "block",
-      type: "servers",
+      type: "url",
     },
     {
       kind: "block",
-      type: "production",
+      type: "protocol",
     },
     {
       kind: "block",
-      type: "development",
+      type: "description",
     },
+    {
+      kind: "block",
+      type: "variables",
+    },
+  ],
+};
+
+export const variables = {
+  contents: [
     {
       kind: "label",
-      text: "Input Fields",
-    },
-
-    {
-      kind: "block",
-      type: "text_input",
+      text: "Schema",
     },
     {
       kind: "block",
-      type: "math_number",
+      type: "port",
+    },
+    {
+      kind: "block",
+      type: "security",
     },
   ],
 };

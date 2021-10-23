@@ -1,24 +1,17 @@
-export default function toolBoxUpdater(event, workspace, defaultToolbox) {
-  const selectedBlock = workspace.getBlockById(event.blockId);
-  if (selectedBlock && selectedBlock.needsChildren) {
-    const content = {
-      contents: [
-        {
-          kind: "label",
-          text: "Schema",
-        },
-        {
-          kind: "block",
-          type: "name",
-        },
-        {
-          kind: "block",
-          type: "url",
-        },
-      ],
-    };
-    workspace.updateToolbox(content);
-  } else {
-    workspace.updateToolbox(defaultToolbox);
+/* eslint-disable no-unused-vars */
+import { lisenceContent } from "../components/toolboxs/infoContent";
+import { prodContent, variables } from "../components/toolboxs/serverContent";
+
+export default function toolBoxUpdater(workspace, block) {
+  let content;
+  if (block.type === "license") {
+    content = lisenceContent;
   }
+  if (block.type === "production" || block.type === "development") {
+    content = prodContent;
+  }
+  if (block.type === "variables") {
+    content = variables;
+  }
+  workspace.updateToolbox(content);
 }

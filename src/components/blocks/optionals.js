@@ -2,17 +2,17 @@ import Blockly from "blockly";
 
 Blockly.Blocks.name = {
   init() {
-    this.appendValueInput("VALUE").setCheck("String").appendField("Name");
-    this.setPreviousStatement(true, "Name");
-    this.setNextStatement(true, "Name");
+    this.appendValueInput("VALUE").setCheck("String").appendField("name");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
   },
 };
 
 Blockly.Blocks.url = {
   init() {
-    this.appendValueInput("VALUE").setCheck("String").appendField("Url");
-    this.setPreviousStatement(true, "Url");
-    this.setNextStatement(true, "Url");
+    this.appendValueInput("VALUE").setCheck("String").appendField("url");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
   },
 };
 

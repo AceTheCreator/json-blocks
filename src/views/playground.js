@@ -5,8 +5,10 @@ import { useState, useEffect } from "react";
 import { BlocklyWorkspace } from "react-blockly";
 import Blockly from "blockly";
 import "blockly/javascript_compressed";
-import "../components/blocks/schemas";
-import "../components/blocks/generators";
+import "../components/blocks/infoSchemas";
+import "../components/blocks/serverSchema";
+import "../common/infoGenerators";
+import "../common/serverGenerator";
 import "../components/blocks/fields";
 import "../components/blocks/optionals";
 import { PlaygroundContainer, PlaygroundWrapper } from "./views.style";
@@ -25,7 +27,12 @@ function Playground({ toolBox }) {
     setJavascriptCode(code);
     // eslint-disable-next-line no-restricted-globals
     function onClick(event) {
-      toolBoxUpdater(event, workspace, toolBox);
+      const selectedBlock = workspace.getBlockById(event.blockId);
+      if (selectedBlock && selectedBlock.needsChildren) {
+        toolBoxUpdater(workspace, selectedBlock);
+      } else {
+        workspace.updateToolbox(toolBox);
+      }
     }
     workspace.addChangeListener(onClick);
   }

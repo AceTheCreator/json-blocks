@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable consistent-return */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-unused-vars */
@@ -22,28 +23,30 @@ export function validateSchema(block) {
   }
 }
 
-function objectCreator(currentChildBlock, block, child) {
-  if (child) {
+function objectCreator(currentBlock, block) {
+  if (currentBlock && currentBlock.blockType === "object") {
     const { counter } = block;
-    if (block.childBlocks_ && Object.keys(block.childBlocks_).length > 0) {
-      const blocks = block.childBlocks_;
-      const currentBlock = blocks[counter];
-      const a = currentBlock.childBlocks_;
-      if (currentBlock.blockType !== "object") {
-        objectCreator(a, block);
-      } else {
-        objectCreator(currentChildBlock, currentBlock, true);
-      }
+    if (
+      currentBlock.childBlocks_ &&
+      Object.keys(currentBlock.childBlocks_).length > 0
+    ) {
+      const blocks = currentBlock.childBlocks_;
+      const currentBloc = blocks[counter];
+      objectCreator(currentBloc, currentBlock);
     }
   } else {
-    if (block.childBlocks_ && Object.keys(block.childBlocks_).length > 0) {
-      for (let i = 0; i < currentChildBlock.length; i++) {
-        if (currentChildBlock[i].blockType !== "field") {
-          const holder = currentChildBlock[i];
-          holder.parentBlock_ = block;
-          currentChildBlock.splice(i, 1);
+    if (
+      currentBlock &&
+      currentBlock.childBlocks_ &&
+      Object.keys(currentBlock.childBlocks_).length > 0
+    ) {
+      const currentChild = currentBlock.childBlocks_;
+      for (let i = 0; i < currentChild.length; i++) {
+        if (currentChild[i].blockType !== "field") {
+          const holder = currentChild[i];
+          currentChild[i].parentBlock_ = block;
+          currentChild.splice(i, 1);
           block.childBlocks_.push(holder);
-          block.counter += 1;
         }
       }
     }
@@ -53,20 +56,16 @@ function objectCreator(currentChildBlock, block, child) {
 
 export function blockFormatter(block) {
   const { counter } = block;
+  block.counter = block.childBlocks_.length - 1;
   if (block.blockType === "object") {
     if (block.childBlocks_ && Object.keys(block.childBlocks_).length > 0) {
       const blocks = block.childBlocks_;
       const currentBlock = blocks[counter];
-      const currentChildBlock = currentBlock.childBlocks_;
-      if (currentBlock.blockType !== "object") {
-        objectCreator(currentChildBlock, block);
-      } else {
-        objectCreator(currentChildBlock, currentBlock, true);
-      }
+      objectCreator(currentBlock, block);
     }
   }
-  // eslint-disable-next-line no-use-before-define
   generator(block);
+  // eslint-disable-next-line no-use-before-define
 }
 
 function blockIterator(block, hold) {
@@ -86,13 +85,10 @@ function blockIterator(block, hold) {
       } else {
         hold[blocks[i].type] = {};
         const newHold = hold[blocks[i].type];
-        // console.log(newHold);
-        // console.log(blocks[i].parentBlock_);
         blockIterator(blocks[i], newHold);
       }
     }
   }
-  console.log(spec);
 }
 
 function generator(block) {
@@ -105,6 +101,7 @@ function generator(block) {
     spec[block.type] = {};
     const hold = spec[block.type];
     blockIterator(block, hold);
+    console.log(spec);
   }
 }
 

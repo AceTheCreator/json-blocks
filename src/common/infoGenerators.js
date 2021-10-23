@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Blockly from "blockly";
 import "blockly/javascript";
-import { blockFormatter } from "../../common/interpreter";
+import { blockFormatter } from "./interpreter";
 
 Blockly.JavaScript.info = function (block) {
   blockFormatter(block);
@@ -47,15 +47,5 @@ Blockly.JavaScript.url = function (block) {
 
 Blockly.JavaScript.math_number = function (block) {
   block.blockType = "field";
-  return null;
-};
-
-Blockly.JavaScript.append_mouse = function (block) {
-  return null;
-};
-Blockly.JavaScript.rodent_list = function (block) {
-  return null;
-};
-Blockly.JavaScript.append_dog = function (block) {
   return null;
 };
