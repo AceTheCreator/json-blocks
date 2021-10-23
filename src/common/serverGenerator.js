@@ -62,12 +62,7 @@ Blockly.JavaScript.default = function () {
   return null;
 };
 
-// Blockly.JavaScript.security = function (block) {
-//   blockFormatter(block);
-//   block.blockType = "object";
-//   block.needsChildren = true;
-//   if (!block.counter) {
-//     block.counter = 0;
-//   }
-//   return null;
-// };
+Blockly.JavaScript.enum = function (block) {
+  block.blockType = "array";
+  return null;
+};

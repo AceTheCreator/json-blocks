@@ -73,7 +73,15 @@ function blockIterator(block, hold) {
     const blocks = block.childBlocks_;
     for (let i = 0; i < blocks.length; i++) {
       if (blocks[i].blockType !== "object") {
-        if (
+        if (blocks[i].blockType === "array") {
+          if (!hold[blocks[i].type]) {
+            hold[blocks[i].type] = [];
+          }
+          for (let j = 0; j < blocks[i].childBlocks_.length; j++) {
+            const blk = blocks[i].childBlocks_;
+            hold[blocks[i].type].push(blk[j].inputList[0].fieldRow[0].value_);
+          }
+        } else if (
           blocks[i].childBlocks_ &&
           Object.keys(blocks[i].childBlocks_).length > 0
         ) {

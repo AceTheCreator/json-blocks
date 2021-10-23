@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 import Blockly from "blockly";
 
@@ -50,14 +51,17 @@ Blockly.Blocks.port = {
 Blockly.Blocks.enum = {
   init() {
     this.appendDummyInput().appendField("enum");
-    this.appendStatementInput("enum").setCheck(["Number"]);
-    this.setPreviousStatement(true, null);
+    this.appendValueInput("LIST").setCheck("String");
+    this.appendValueInput("LIST");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.contextMenu = false;
   },
 };
 
 Blockly.Blocks.default = {
   init() {
-    this.appendValueInput("VALUE").setCheck("Number").appendField("version");
+    this.appendValueInput("VALUE").setCheck("Number").appendField("default");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
   },

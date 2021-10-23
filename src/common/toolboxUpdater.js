@@ -1,6 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { lisenceContent } from "../components/toolboxs/infoContent";
-import { prodContent, variables } from "../components/toolboxs/serverContent";
+import {
+  prodContent,
+  variables,
+  port,
+} from "../components/toolboxs/serverContent";
 
 export default function toolBoxUpdater(workspace, block) {
   let content;
@@ -12,6 +16,9 @@ export default function toolBoxUpdater(workspace, block) {
   }
   if (block.type === "variables") {
     content = variables;
+  }
+  if (block.type === "port") {
+    content = port;
   }
   workspace.updateToolbox(content);
 }

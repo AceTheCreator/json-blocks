@@ -40,3 +40,24 @@ export const variables = {
     },
   ],
 };
+
+export const port = {
+  contents: [
+    {
+      kind: "label",
+      text: "Schema",
+    },
+    {
+      kind: "block",
+      type: "description",
+    },
+    {
+      kind: "block",
+      type: "default",
+    },
+    {
+      kind: "block",
+      type: "enum",
+    },
+  ],
+};
