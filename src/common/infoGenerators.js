@@ -13,6 +13,7 @@ Blockly.JavaScript.info = function (block) {
 };
 
 Blockly.JavaScript.title = function (block) {
+  block.blockType = "string";
   return null;
 };
 
@@ -28,24 +29,26 @@ Blockly.JavaScript.license = function (block) {
 };
 
 Blockly.JavaScript.text_input = function (block) {
-  block.blockType = "field";
   return null;
 };
 
 Blockly.JavaScript.version = function (block) {
+  block.blockType = "number";
   return null;
 };
 Blockly.JavaScript.description = function (block) {
+  block.blockType = "string";
   return null;
 };
 Blockly.JavaScript.name = function (block) {
+  block.blockType = "string";
   return null;
 };
 Blockly.JavaScript.url = function (block) {
+  block.blockType = "url";
   return null;
 };
 
 Blockly.JavaScript.math_number = function (block) {
-  block.blockType = "field";
   return null;
 };

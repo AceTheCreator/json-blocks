@@ -21,11 +21,13 @@ Blockly.JavaScript.messages = function (block) {
 Blockly.JavaScript.securitySchemes = function (block) {
   blockFormatter(block);
   block.blockType = "object";
+  block.standalone = true;
   return null;
 };
 Blockly.JavaScript.schemas = function (block) {
   blockFormatter(block);
   block.blockType = "object";
+  block.standalone = true;
   return null;
 };
 Blockly.JavaScript.parameters = function (block) {
@@ -45,8 +47,6 @@ Blockly.JavaScript.operationTraits = function (block) {
 };
 Blockly.JavaScript.customBlock = function (block) {
   blockFormatter(block);
-  block.blockType = "object";
-  block.loc = "message";
   block.isCustom = true;
   return null;
 };
@@ -59,5 +59,43 @@ Blockly.JavaScript.payload = function (block) {
 Blockly.JavaScript.traits = function (block) {
   blockFormatter(block);
   block.blockType = "array";
+  return null;
+};
+
+Blockly.JavaScript.ref = function (block) {
+  blockFormatter(block);
+  block.blockType = "string";
+  block.loc = "payload";
+  return null;
+};
+
+Blockly.JavaScript.messagePayloads = function (block) {
+  block.blockType = "field";
+  return null;
+};
+
+Blockly.JavaScript.type = function (block) {
+  block.blockType = "string";
+  return null;
+};
+
+Blockly.JavaScript.typeValues = function (block) {
+  block.blockType = "field";
+  return null;
+};
+
+Blockly.JavaScript.properties = function (block) {
+  blockFormatter(block);
+  block.blockType = "object";
+  return null;
+};
+
+Blockly.JavaScript.format = function (block) {
+  block.blockType = "string";
+  return null;
+};
+Blockly.JavaScript.setVal = function (block) {
+  block.blockType = "number";
+  block.isCustom = true;
   return null;
 };

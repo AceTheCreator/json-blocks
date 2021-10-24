@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-plusplus */
 /* eslint-disable camelcase */
 import Blockly from "blockly";
 
@@ -60,7 +62,7 @@ Blockly.Blocks.customBlock = {
   init() {
     this.appendDummyInput()
       .appendField("")
-      .appendField(new Blockly.FieldTextInput("Enter message"), "FIELDNAME");
+      .appendField(new Blockly.FieldTextInput("Enter something"), "FIELDNAME");
     this.appendStatementInput("custom").setCheck(null);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -94,10 +96,87 @@ Blockly.Blocks.traits = {
   },
 };
 
-// Blockly.Blocks.version = {
-//   init() {
-//     this.appendValueInput("VALUE").setCheck("Number").appendField("version");
-//     this.setPreviousStatement(true, null);
-//     this.setNextStatement(true, null);
-//   },
-// };
+Blockly.Blocks.ref = {
+  init() {
+    this.appendValueInput("VALUE").setCheck("String").appendField("reference");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+  },
+};
+
+Blockly.Blocks.messagePayloads = {
+  init() {
+    const input = this.appendDummyInput()
+      .appendField("")
+      .appendField(new Blockly.FieldDropdown(this.generateOptions), "DAY");
+    this.setOutput(true, "String");
+  },
+
+  generateOptions() {
+    const options = [];
+    if (Object.keys(options).length === 0) {
+      options.push(["", ""]);
+    }
+    return options;
+  },
+};
+Blockly.Blocks.type = {
+  init() {
+    this.appendValueInput("NAME").setCheck("String").appendField("type");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+  },
+};
+
+Blockly.Blocks.typeValues = {
+  init() {
+    const input = this.appendDummyInput()
+      .appendField("")
+      .appendField(new Blockly.FieldDropdown(this.generateOptions), "type");
+    this.setOutput(true, "String");
+  },
+
+  generateOptions() {
+    const options = [
+      ["integer", "integer"],
+      ["object", "object"],
+      ["string", "string"],
+      ["array", "array"],
+      ["boolean", "boolean"],
+    ];
+    return options;
+  },
+};
+
+Blockly.Blocks.properties = {
+  init() {
+    this.appendDummyInput().appendField("properties");
+    this.appendStatementInput("properties").setCheck(null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+  },
+};
+
+Blockly.Blocks.format = {
+  init() {
+    this.appendValueInput("NAME").setCheck("String").appendField("format");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+  },
+};
+
+Blockly.Blocks.setVal = {
+  init() {
+    this.appendValueInput("NAME")
+      .appendField("")
+      .appendField(
+        new Blockly.FieldDropdown([
+          ["minimum", "minimum"],
+          ["maximum", "maximum"],
+        ]),
+        "type"
+      );
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+  },
+};

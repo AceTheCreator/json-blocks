@@ -13,6 +13,7 @@ Blockly.JavaScript.servers = function (block) {
 
 Blockly.JavaScript.production = function (block) {
   blockFormatter(block);
+  block.standalone = true;
   block.check = ["protocol", "url", "description", "variables", "security"];
   block.blockType = "object";
   block.needsChildren = true;
@@ -24,6 +25,7 @@ Blockly.JavaScript.production = function (block) {
 
 Blockly.JavaScript.development = function (block) {
   blockFormatter(block);
+  block.standalone = true;
   block.check = ["protocol", "url", "description", "variables", "security"];
   block.blockType = "object";
   block.needsChildren = true;

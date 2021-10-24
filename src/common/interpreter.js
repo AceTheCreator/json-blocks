@@ -30,9 +30,19 @@ function objectCreator(currentBlock, block) {
       currentBlock.childBlocks_ &&
       Object.keys(currentBlock.childBlocks_).length > 0
     ) {
-      const blocks = currentBlock.childBlocks_;
-      const currentBloc = blocks[counter];
-      objectCreator(currentBloc, currentBlock);
+      const currentChild = currentBlock.childBlocks_;
+      for (let i = 0; i < currentChild.length; i++) {
+        if (currentChild[i].standalone) {
+          const holder = currentChild[i];
+          currentChild[i].parentBlock_ = block;
+          currentChild.splice(i, 1);
+          block.childBlocks_.push(holder);
+        } else {
+          const blocks = currentBlock.childBlocks_;
+          const currentBloc = blocks[counter];
+          objectCreator(currentBloc, currentBlock);
+        }
+      }
     }
   } else {
     if (
@@ -42,7 +52,7 @@ function objectCreator(currentBlock, block) {
     ) {
       const currentChild = currentBlock.childBlocks_;
       for (let i = 0; i < currentChild.length; i++) {
-        if (currentChild[i].blockType !== "field") {
+        if (currentChild[i].blockType) {
           const holder = currentChild[i];
           currentChild[i].parentBlock_ = block;
           currentChild.splice(i, 1);
@@ -85,8 +95,15 @@ function blockIterator(block, hold) {
           blocks[i].childBlocks_ &&
           Object.keys(blocks[i].childBlocks_).length > 0
         ) {
-          hold[blocks[i].type] =
-            blocks[i].childBlocks_[0].inputList[0].fieldRow[0].value_;
+          if (blocks[i].isCustom) {
+            hold[blocks[i].customText] =
+              blocks[i].childBlocks_[0].inputList[0].fieldRow[0].value_;
+          } else {
+            hold[blocks[i].type] =
+              blocks[i].childBlocks_[0].inputList[0].fieldRow[0].value_;
+          }
+        } else if (blocks[i].isCustom) {
+          hold[blocks[i].customText] = null;
         } else {
           hold[blocks[i].type] = null;
         }

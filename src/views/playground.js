@@ -31,10 +31,19 @@ function Playground({ toolBox }) {
     function onClick(event) {
       const selectedBlock = workspace.getBlockById(event.blockId);
       if (selectedBlock && selectedBlock.isCustom) {
+        if (selectedBlock.parentBlock_ && !selectedBlock.blockType) {
+          selectedBlock.blockType = "object";
+          selectedBlock.loc = selectedBlock.parentBlock_.type;
+        }
         selectedBlock.customText =
           selectedBlock.inputList[0].fieldRow[0].value_;
       }
-      if (selectedBlock && selectedBlock.blockType === "object") {
+      console.log(selectedBlock);
+      if (
+        selectedBlock &&
+        selectedBlock.blockType &&
+        selectedBlock.blockType !== "field"
+      ) {
         toolBoxUpdater(workspace, selectedBlock);
       } else {
         workspace.updateToolbox(toolBox);

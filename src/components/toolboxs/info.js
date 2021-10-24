@@ -1,13 +1,23 @@
 /* eslint-disable import/prefer-default-export */
+const blockTitle = {
+  kind: "label",
+  text: "Required blocks",
+};
 export const infoToolbox = {
+  contents: [
+    blockTitle,
+    {
+      kind: "block",
+      type: "info",
+    },
+  ],
+};
+
+export const infoContent = {
   contents: [
     {
       kind: "label",
       text: "Schema",
-    },
-    {
-      kind: "block",
-      type: "info",
     },
     {
       kind: "block",
@@ -25,26 +35,22 @@ export const infoToolbox = {
       kind: "block",
       type: "license",
     },
+  ],
+};
+
+export const lisenceContent = {
+  contents: [
     {
       kind: "label",
-      text: "Input Fields",
-    },
-
-    {
-      kind: "block",
-      type: "text_input",
+      text: "Schema",
     },
     {
       kind: "block",
-      type: "math_number",
+      type: "name",
     },
-    // {
-    //   kind: "block",
-    //   type: "name",
-    // },
-    // {
-    //   kind: "block",
-    //   type: "url",
-    // },
+    {
+      kind: "block",
+      type: "url",
+    },
   ],
 };
