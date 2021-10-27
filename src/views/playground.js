@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
 /* eslint-disable no-underscore-dangle */
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { BlocklyWorkspace } from "react-blockly";
 import Blockly from "blockly";
 import "blockly/javascript_compressed";
@@ -18,14 +18,14 @@ import toolBoxUpdater from "../common/toolboxUpdater";
 import blockUpdater from "../common/blocksUpdater";
 import { blockFormatter, dropDownPopulator } from "../common/interpreter";
 
+const Preview = lazy(() => import("./preview"));
 // eslint-disable-next-line react/prop-types
-function Playground({ toolBox }) {
+function Playground({ toolBox, view }) {
   // eslint-disable-next-line no-unused-vars
   const [xml, setXml] = useState("");
   // eslint-disable-next-line no-unused-vars
   const [javascriptCode, setJavascriptCode] = useState("");
   // eslint-disable-next-line no-unused-vars
-
   function workspaceDidChange(workspace) {
     const code = Blockly.JavaScript.workspaceToCode(workspace);
     setJavascriptCode(code);
@@ -91,6 +91,11 @@ function Playground({ toolBox }) {
             onXmlChange={setXml}
           />
         </PlaygroundContainer>
+        {view === "preview" && (
+          <Suspense fallback={<div>loading</div>}>
+            <Preview />
+          </Suspense>
+        )}
       </PlaygroundWrapper>
     </>
   );

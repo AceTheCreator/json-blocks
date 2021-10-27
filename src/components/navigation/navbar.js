@@ -16,7 +16,7 @@ import { defaultToolbox } from "../toolboxs/default";
 import { componentToolbox } from "../toolboxs/components";
 import { channelsToolbox } from "../toolboxs/channels";
 
-function Navbar({ setToolbox }) {
+function Navbar({ setToolbox, view, setView }) {
   const [active, setActive] = useState(null);
   useEffect(() => {
     if (active === "Info") {
@@ -72,10 +72,24 @@ function Navbar({ setToolbox }) {
         </div>
       </CenterNavLink>
       <RightNavLink>
-        <NavButton>
-          <div>
-            <span className="fi fi-sr-play" />
-          </div>
+        <NavButton
+          onClick={() => {
+            if (view === "playground") {
+              setView("preview");
+            } else {
+              setView("playground");
+            }
+          }}
+        >
+          {view === "playground" ? (
+            <div>
+              <span className="fi fi-sr-play" />
+            </div>
+          ) : (
+            <div>
+              <span className="fi fi-sr-stop" />
+            </div>
+          )}
         </NavButton>
       </RightNavLink>
     </NavbarWrapper>
@@ -84,5 +98,7 @@ function Navbar({ setToolbox }) {
 
 Navbar.propTypes = {
   setToolbox: PropTypes.func.isRequired,
+  view: PropTypes.object.isRequired,
+  setView: PropTypes.func.isRequired,
 };
 export default Navbar;

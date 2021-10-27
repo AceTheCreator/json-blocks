@@ -11,3 +11,7 @@ export const PlaygroundContainer = styled.div`
   width: 100%;
   height: 90vh;
 `;
+
+export const PreviewWrapper = styled.div`
+  width: 70%;
+`;
