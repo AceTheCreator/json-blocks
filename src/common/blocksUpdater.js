@@ -11,6 +11,7 @@ import {
   objPayload,
   dropDown,
 } from "../components/toolboxs/components";
+import { channelName, channel } from "../components/toolboxs/channels";
 
 export default function blocksUpdater(block, workspace) {
   const active = localStorage.getItem("activeBlock");
@@ -69,6 +70,14 @@ export default function blocksUpdater(block, workspace) {
     }
     if (block.type === "$ref") {
       blocks = dropDown;
+    }
+  }
+  if (active === "Channels") {
+    if (block.type === "channels") {
+      blocks = channelName;
+    }
+    if (block.type === "customBlock") {
+      blocks = channel;
     }
   }
   blockGenerator(block, blocks, workspace);

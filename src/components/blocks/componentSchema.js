@@ -9,6 +9,12 @@ Blockly.Blocks.components = {
     this.appendStatementInput("components").setCheck(null);
   },
 };
+Blockly.Blocks.channels = {
+  init() {
+    this.appendDummyInput().appendField("channels");
+    this.appendStatementInput("channels").setCheck(null);
+  },
+};
 
 Blockly.Blocks.messages = {
   init() {

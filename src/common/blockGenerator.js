@@ -13,7 +13,7 @@ export default function blockGenerator(selected, blocks, workspace) {
           objectBlock(bloc.name);
         }
         if (bloc.type === "custom") {
-          customBlock(bloc.name);
+          customBlock(bloc);
         }
         if (bloc.type === "string" || bloc.type === "ref") {
           stringBlock(bloc.name);
@@ -41,6 +41,7 @@ export default function blockGenerator(selected, blocks, workspace) {
           block.isNested = bloc.isNested;
           block.disabled = bloc.disabled;
           block.isCustom = bloc.isCustom;
+          block.data = bloc.data;
           block.check = bloc.check;
           block.connections = bloc.connections;
           block.standalone = bloc.standalone;
@@ -130,14 +131,15 @@ function arrayBlock(block) {
 }
 
 function customBlock(block) {
-  Blockly.Blocks[block] = {
+  Blockly.Blocks[block.name] = {
     init() {
-      this.appendDummyInput()
-        .appendField("")
-        .appendField(
-          new Blockly.FieldTextInput("Enter something"),
-          "FIELDNAME"
-        );
+      let field;
+      if (block.data) {
+        field = new Blockly.FieldDropdown(block.data);
+      } else {
+        field = new Blockly.FieldTextInput("Enter something");
+      }
+      this.appendDummyInput().appendField("").appendField(field, "FIELDNAME");
       this.appendStatementInput("custom").setCheck(null);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);

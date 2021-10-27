@@ -14,6 +14,7 @@ import { infoToolbox } from "../toolboxs/info";
 import { serverToolbox } from "../toolboxs/servers";
 import { defaultToolbox } from "../toolboxs/default";
 import { componentToolbox } from "../toolboxs/components";
+import { channelsToolbox } from "../toolboxs/channels";
 
 function Navbar({ setToolbox }) {
   const [active, setActive] = useState(null);
@@ -24,6 +25,8 @@ function Navbar({ setToolbox }) {
       setToolbox(serverToolbox);
     } else if (active === "Components") {
       setToolbox(componentToolbox);
+    } else if (active === "Channels") {
+      setToolbox(channelsToolbox);
     } else {
       setToolbox(defaultToolbox);
     }
