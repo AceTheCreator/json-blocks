@@ -13,74 +13,72 @@ export const serverToolbox = {
   ],
 };
 
-export const serverContent = {
-  contents: [
-    blockTitle,
-    {
-      kind: "block",
-      type: "production",
-    },
-    {
-      kind: "block",
-      type: "development",
-    },
-    {
-      kind: "label",
-      text: "Input Fields",
-    },
-  ],
-};
+export const server = [
+  {
+    name: "production",
+    type: "object",
+    standalone: true,
+    connections: ["servers"],
+  },
+  {
+    name: "development",
+    type: "object",
+    standalone: true,
+    connections: ["servers"],
+  },
+];
 
-export const prodContent = {
-  contents: [
-    blockTitle,
-    {
-      kind: "block",
-      type: "url",
-    },
-    {
-      kind: "block",
-      type: "protocol",
-    },
-    {
-      kind: "block",
-      type: "description",
-    },
-    {
-      kind: "block",
-      type: "variables",
-    },
-  ],
-};
+export const prod = [
+  blockTitle,
+  {
+    name: "url",
+    type: "url",
+    connections: ["production", "development"],
+  },
+  {
+    name: "protocol",
+    type: "string",
+    connections: ["production", "development"],
+  },
+  {
+    name: "description",
+    type: "string",
+    connections: ["production", "development"],
+  },
+  {
+    name: "variables",
+    type: "object",
+    connections: ["production", "development"],
+  },
+];
 
-export const variables = {
-  contents: [
-    blockTitle,
-    {
-      kind: "block",
-      type: "port",
-    },
-    {
-      kind: "block",
-      type: "security",
-    },
-  ],
-};
+export const variables = [
+  {
+    name: "port",
+    type: "object",
+    connections: ["variables"],
+  },
+  {
+    type: "array",
+    name: "security",
+    connections: ["variables"],
+  },
+];
 
-export const port = {
-  contents: [
-    blockTitle,
-    {
-      kind: "block",
-      type: "description",
-    },
-    {
-      kind: "block",
-      type: "default",
-    },
-    {
-      kind: "block",
-      type: "enum",
-    },
-  ],
-};
+export const port = [
+  {
+    type: "string",
+    name: "description",
+    connections: ["port"],
+  },
+  {
+    type: "string",
+    name: "default",
+    connections: ["port"],
+  },
+  {
+    type: "array",
+    name: "enum",
+    connections: ["port"],
+  },
+];

@@ -1,9 +1,7 @@
 import Blockly from "blockly";
 import "blockly/javascript";
-import { blockFormatter } from "./interpreter";
 
 Blockly.JavaScript.servers = function (block) {
-  blockFormatter(block);
   block.blockType = "object";
   if (!block.counter) {
     block.counter = 0;
@@ -12,7 +10,6 @@ Blockly.JavaScript.servers = function (block) {
 };
 
 Blockly.JavaScript.production = function (block) {
-  blockFormatter(block);
   block.standalone = true;
   block.check = ["protocol", "url", "description", "variables", "security"];
   block.blockType = "object";
@@ -24,7 +21,6 @@ Blockly.JavaScript.production = function (block) {
 };
 
 Blockly.JavaScript.development = function (block) {
-  blockFormatter(block);
   block.standalone = true;
   block.check = ["protocol", "url", "description", "variables", "security"];
   block.blockType = "object";
@@ -39,7 +35,6 @@ Blockly.JavaScript.protocol = function () {
   return null;
 };
 Blockly.JavaScript.variables = function (block) {
-  blockFormatter(block);
   block.check = ["port"];
   block.blockType = "object";
   block.needsChildren = true;
@@ -50,7 +45,6 @@ Blockly.JavaScript.variables = function (block) {
 };
 
 Blockly.JavaScript.port = function (block) {
-  blockFormatter(block);
   block.check = ["description", "default", "enum"];
   block.blockType = "object";
   block.needsChildren = true;

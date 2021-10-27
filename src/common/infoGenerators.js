@@ -1,10 +1,8 @@
 /* eslint-disable no-unused-vars */
 import Blockly from "blockly";
 import "blockly/javascript";
-import { blockFormatter } from "./interpreter";
 
 Blockly.JavaScript.info = function (block) {
-  blockFormatter(block);
   block.blockType = "object";
   if (!block.counter) {
     block.counter = 0;
@@ -18,10 +16,8 @@ Blockly.JavaScript.title = function (block) {
 };
 
 Blockly.JavaScript.license = function (block) {
-  blockFormatter(block);
   block.check = ["name", "url"];
   block.blockType = "object";
-  block.needsChildren = true;
   if (!block.counter) {
     block.counter = 0;
   }

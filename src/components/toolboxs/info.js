@@ -13,44 +13,39 @@ export const infoToolbox = {
   ],
 };
 
-export const infoContent = {
-  contents: [
-    {
-      kind: "label",
-      text: "Schema",
-    },
-    {
-      kind: "block",
-      type: "title",
-    },
-    {
-      kind: "block",
-      type: "version",
-    },
-    {
-      kind: "block",
-      type: "description",
-    },
-    {
-      kind: "block",
-      type: "license",
-    },
-  ],
-};
+export const info = [
+  {
+    name: "title",
+    type: "string",
+    connections: ["info"],
+  },
+  {
+    name: "version",
+    type: "string",
+    connections: ["info"],
+  },
+  {
+    name: "description",
+    connections: ["info"],
+    type: "string",
+  },
+  {
+    name: "license",
+    type: "object",
+    connections: ["info"],
+    standalone: true,
+  },
+];
 
-export const lisenceContent = {
-  contents: [
-    {
-      kind: "label",
-      text: "Schema",
-    },
-    {
-      kind: "block",
-      type: "name",
-    },
-    {
-      kind: "block",
-      type: "url",
-    },
-  ],
-};
+export const license = [
+  {
+    name: "name",
+    type: "string",
+    connections: ["license"],
+  },
+  {
+    name: "url",
+    connections: ["license"],
+    type: "url",
+  },
+];

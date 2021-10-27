@@ -15,6 +15,8 @@ import "../components/blocks/fields";
 import "../components/blocks/optionals";
 import { PlaygroundContainer, PlaygroundWrapper } from "./views.style";
 import toolBoxUpdater from "../common/toolboxUpdater";
+import blockUpdater from "../common/blocksUpdater";
+import { blockFormatter } from "../common/interpreter";
 
 // eslint-disable-next-line react/prop-types
 function Playground({ toolBox }) {
@@ -38,7 +40,12 @@ function Playground({ toolBox }) {
         selectedBlock.customText =
           selectedBlock.inputList[0].fieldRow[0].value_;
       }
-      console.log(selectedBlock);
+      if (selectedBlock) {
+        blockFormatter(selectedBlock);
+      }
+      if (selectedBlock) {
+        blockUpdater(selectedBlock, workspace);
+      }
       if (
         selectedBlock &&
         selectedBlock.blockType &&

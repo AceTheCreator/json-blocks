@@ -23,57 +23,42 @@ export function validateSchema(block) {
   }
 }
 
-function objectCreator(currentBlock, block) {
-  if (currentBlock && currentBlock.blockType === "object") {
-    const { counter } = block;
-    if (
-      currentBlock.childBlocks_ &&
-      Object.keys(currentBlock.childBlocks_).length > 0
-    ) {
-      const currentChild = currentBlock.childBlocks_;
-      for (let i = 0; i < currentChild.length; i++) {
-        if (currentChild[i].standalone) {
-          const holder = currentChild[i];
-          currentChild[i].parentBlock_ = block;
-          currentChild.splice(i, 1);
-          block.childBlocks_.push(holder);
-        } else {
-          const blocks = currentBlock.childBlocks_;
-          const currentBloc = blocks[counter];
-          objectCreator(currentBloc, currentBlock);
+function newFormat(block) {
+  const hold = block.parentBlock_;
+  if (block.standalone) {
+    if (hold && hold.parentBlock_) {
+      const nextHold = hold.parentBlock_;
+      block.parentBlock_ = nextHold;
+      nextHold.childBlocks_.push(block);
+      const prevChildren = hold.childBlocks_;
+      for (let i = 0; i < prevChildren.length; i++) {
+        if (prevChildren[i].type === block.type) {
+          prevChildren.splice(i, 1);
         }
       }
     }
-  } else {
-    if (
-      currentBlock &&
-      currentBlock.childBlocks_ &&
-      Object.keys(currentBlock.childBlocks_).length > 0
-    ) {
-      const currentChild = currentBlock.childBlocks_;
-      for (let i = 0; i < currentChild.length; i++) {
-        if (currentChild[i].blockType) {
-          const holder = currentChild[i];
-          currentChild[i].parentBlock_ = block;
-          currentChild.splice(i, 1);
-          block.childBlocks_.push(holder);
+  } else if (Array.isArray(block.connections)) {
+    const { connections } = block;
+    for (let i = 0; i < connections.length; i++) {
+      if (hold && hold.type !== connections[i]) {
+        if (hold.parentBlock_.type === connections[i]) {
+          const nextHold = hold.parentBlock_;
+          block.parentBlock_ = nextHold;
+          nextHold.childBlocks_.push(block);
+          const prevChildren = hold.childBlocks_;
+          for (let j = 0; j < prevChildren.length; j++) {
+            prevChildren.splice(j, 1);
+          }
         }
       }
     }
-    validateSchema(block);
   }
+  validateSchema(block);
 }
 
 export function blockFormatter(block) {
-  const { counter } = block;
   block.counter = block.childBlocks_.length - 1;
-  if (block.blockType === "object") {
-    if (block.childBlocks_ && Object.keys(block.childBlocks_).length > 0) {
-      const blocks = block.childBlocks_;
-      const currentBlock = blocks[counter];
-      objectCreator(currentBlock, block);
-    }
-  }
+  newFormat(block);
   generator(block);
   // eslint-disable-next-line no-use-before-define
 }
