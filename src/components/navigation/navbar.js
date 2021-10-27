@@ -27,6 +27,10 @@ function Navbar({ setToolbox }) {
     } else {
       setToolbox(defaultToolbox);
     }
+    function setActiveToLocal(value) {
+      localStorage.setItem("activeBlock", value);
+    }
+    setActiveToLocal(active);
   }, [active]);
   return (
     <NavbarWrapper>

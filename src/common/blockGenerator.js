@@ -2,11 +2,6 @@
 /* eslint-disable no-plusplus */
 import Blockly from "blockly";
 import "blockly/javascript";
-// eslint-disable-next-line no-unused-vars
-import { blockFormatter } from "./interpreter";
-import dummy from "../data/dummy";
-// eslint-disable-next-line no-unused-vars
-import spec2 from "../data/spec2";
 
 // eslint-disable-next-line consistent-return
 export default function blockGenerator(selected, blocks, workspace) {
@@ -14,12 +9,11 @@ export default function blockGenerator(selected, blocks, workspace) {
     for (let i = 0; i < blocks.length; i++) {
       const bloc = blocks[i];
       if (bloc.name) {
-        if (!dummy[bloc.connection]) {
-          dummy[bloc.connection] = {};
-        }
         if (bloc.type === "object") {
-          bloc.counter = 0;
           objectBlock(bloc.name);
+        }
+        if (bloc.type === "custom") {
+          customBlock(bloc.name);
         }
         if (bloc.type === "string") {
           stringBlock(bloc.name);
@@ -35,25 +29,13 @@ export default function blockGenerator(selected, blocks, workspace) {
         }
         // eslint-disable-next-line no-shadow
         Blockly.JavaScript[bloc.name] = function (block) {
-          block.blockType = bloc.type;
+          if (bloc.type !== "custom") {
+            block.blockType = bloc.type;
+          }
+          block.isCustom = bloc.isCustom;
           block.check = bloc.check;
           block.connections = bloc.connections;
           block.standalone = bloc.standalone;
-          const a = dummy[bloc.connection];
-          if (block.blockType === "object") {
-            block.counter = 0;
-            a[block.type] = {};
-          }
-          if (block.blockType === "array") {
-            a[block.type] = [];
-          }
-          if (
-            block.blockType === "string" ||
-            block.blockType === "url" ||
-            block.blockType === "number"
-          ) {
-            a[block.type] = null;
-          }
           return null;
         };
       }
@@ -126,6 +108,22 @@ function arrayBlock(block) {
       this.setPreviousStatement(true);
       this.setNextStatement(true);
       this.contextMenu = false;
+    },
+  };
+}
+
+function customBlock(block) {
+  Blockly.Blocks[block] = {
+    init() {
+      this.appendDummyInput()
+        .appendField("")
+        .appendField(
+          new Blockly.FieldTextInput("Enter something"),
+          "FIELDNAME"
+        );
+      this.appendStatementInput("custom").setCheck(null);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
     },
   };
 }

@@ -13,142 +13,144 @@ export const componentToolbox = {
   ],
 };
 
-export const componentContent = {
-  contents: [
-    blockTitle,
-    {
-      kind: "block",
-      type: "messages",
-    },
-    {
-      kind: "block",
-      type: "schemas",
-    },
-    {
-      kind: "block",
-      type: "securitySchemes",
-    },
-    {
-      kind: "block",
-      type: "parameters",
-    },
-    {
-      kind: "block",
-      type: "messageTraits",
-    },
-    {
-      kind: "block",
-      type: "operationTraits",
-    },
-  ],
-};
+export const component = [
+  {
+    type: "object",
+    name: "messages",
+    connections: ["components"],
+    standalone: true,
+  },
+  {
+    type: "object",
+    name: "schemas",
+    connections: ["components"],
+    standalone: true,
+  },
+  {
+    type: "object",
+    name: "securitySchemes",
+    connections: ["components"],
+    standalone: true,
+  },
+  {
+    type: "object",
+    name: "parameters",
+    connections: ["components"],
+    standalone: true,
+  },
+  {
+    type: "object",
+    name: "messageTraits",
+    connections: ["components"],
+    standalone: true,
+  },
+  {
+    type: "object",
+    name: "operationTraits",
+    connections: ["components"],
+    standalone: true,
+  },
+];
 
-export const custom = {
-  contents: [
-    blockTitle,
-    {
-      kind: "block",
-      type: "customBlock",
-    },
-  ],
-};
+export const custom = [
+  {
+    type: "custom",
+    name: "customBlock",
+    isCustom: true,
+  },
+];
 
-export const messageContent = {
-  contents: [
-    blockTitle,
-    {
-      kind: "block",
-      type: "name",
-    },
-    {
-      kind: "block",
-      type: "title",
-    },
-    {
-      kind: "block",
-      type: "summary",
-    },
-    {
-      kind: "block",
-      type: "payload",
-    },
-    {
-      kind: "block",
-      type: "traits",
-    },
-  ],
-};
+export const message = [
+  {
+    type: "string",
+    name: "name",
+    connections: ["customBlock"],
+  },
+  {
+    type: "string",
+    name: "title",
+    connections: ["customBlock"],
+  },
+  {
+    type: "string",
+    name: "summary",
+    connections: ["customBlock"],
+  },
+  {
+    type: "object",
+    name: "payload",
+    connections: ["customBlock"],
+  },
+  {
+    type: "array",
+    name: "traits",
+    connections: ["customBlock"],
+  },
+];
 
-export const schemaContent = {
-  contents: [
-    blockTitle,
-    {
-      kind: "block",
-      type: "type",
-    },
-    {
-      kind: "block",
-      type: "properties",
-    },
-  ],
-};
+export const schema = [
+  {
+    type: "string",
+    name: "type",
+    connections: ["custom"],
+  },
+  {
+    type: "object",
+    name: "properties",
+    connections: ["custom"],
+  },
+];
 
-export const payloadContent = {
-  contents: [
-    blockTitle,
-    {
-      kind: "block",
-      type: "ref",
-    },
-  ],
-};
+export const payload = [
+  {
+    type: "string",
+    name: "ref",
+    connections: ["payload"],
+  },
+];
 
-export const refContent = {
-  contents: [
-    blockTitle,
-    {
-      kind: "block",
-      type: "messagePayloads",
-    },
-  ],
-};
+export const ref = [
+  {
+    type: "block",
+    name: "messagePayloads",
+  },
+];
 
-export const typeContent = {
-  contents: [
-    blockTitle,
-    {
-      kind: "block",
-      type: "typeValues",
-    },
-  ],
-};
+export const type = [
+  {
+    type: "block",
+    name: "typeValues",
+  },
+];
 
-export const propertiesContent = {
-  contents: [
-    blockTitle,
-    {
-      kind: "block",
-      type: "type",
-    },
-    {
-      kind: "block",
-      type: "description",
-    },
-    {
-      kind: "block",
-      type: "ref",
-    },
-    {
-      kind: "block",
-      type: "enum",
-    },
-    {
-      kind: "block",
-      type: "setVal",
-    },
-    {
-      kind: "block",
-      type: "format",
-    },
-  ],
-};
+export const properties = [
+  {
+    type: "block",
+    name: "customBlock",
+    connections: ["properties"],
+  },
+  {
+    type: "block",
+    name: "type",
+  },
+  {
+    type: "block",
+    name: "description",
+  },
+  {
+    type: "block",
+    name: "ref",
+  },
+  {
+    type: "block",
+    name: "enum",
+  },
+  {
+    type: "block",
+    name: "setVal",
+  },
+  {
+    type: "block",
+    name: "format",
+  },
+];
