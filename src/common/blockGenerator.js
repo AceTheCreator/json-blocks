@@ -41,6 +41,7 @@ export default function blockGenerator(selected, blocks, workspace) {
           block.isNested = bloc.isNested;
           block.disabled = bloc.disabled;
           block.isCustom = bloc.isCustom;
+          block.isField = bloc.isField;
           block.data = bloc.data;
           block.check = bloc.check;
           block.connections = bloc.connections;

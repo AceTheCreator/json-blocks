@@ -25,11 +25,14 @@ Blockly.JavaScript.license = function (block) {
 };
 
 Blockly.JavaScript.text_input = function (block) {
+  block.blockType = "string";
+  block.isField = true;
   return null;
 };
 
 Blockly.JavaScript.version = function (block) {
   block.blockType = "number";
+  block.isField = true;
   return null;
 };
 Blockly.JavaScript.description = function (block) {

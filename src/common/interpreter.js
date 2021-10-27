@@ -49,7 +49,9 @@ function newFormat(block) {
           nextHold.childBlocks_.push(block);
           const prevChildren = hold.childBlocks_;
           for (let j = 0; j < prevChildren.length; j++) {
-            prevChildren.splice(j, 1);
+            if (!prevChildren[j].isField) {
+              prevChildren.splice(j, 1);
+            }
           }
         }
       }
@@ -134,6 +136,19 @@ function generator(block) {
 
 export function dropDownPopulator(block) {
   if (block.parentBlock_) {
+    if (block.parentBlock_.type === "parameters") {
+      if (spec.components) {
+        const { parameters } = spec.components;
+        if (parameters && Object.keys(parameters).length > 0) {
+          const options = [];
+          for (const key in parameters) {
+            const res = [key, key];
+            options.push(res);
+          }
+          block.inputList[0].fieldRow[0].menuGenerator_ = options;
+        }
+      }
+    }
     if (block.parentBlock_.parentBlock_.type === "payload") {
       // Find data from the schema objects
       const { schemas } = spec.components;
@@ -146,38 +161,38 @@ export function dropDownPopulator(block) {
         block.inputList[0].fieldRow[0].menuGenerator_ = options;
       }
     }
-  }
-  if (block.parentBlock_.parentBlock_.type === "traits") {
-    const { messageTraits } = spec.components;
-    if (messageTraits && Object.keys(messageTraits).length > 0) {
-      const options = [];
-      for (const key in messageTraits) {
-        const res = [key, `#/components/messageTraits/${key}`];
-        options.push(res);
+    if (block.parentBlock_.parentBlock_.type === "traits") {
+      const { messageTraits } = spec.components;
+      if (messageTraits && Object.keys(messageTraits).length > 0) {
+        const options = [];
+        for (const key in messageTraits) {
+          const res = [key, `#/components/messageTraits/${key}`];
+          options.push(res);
+        }
+        block.inputList[0].fieldRow[0].menuGenerator_ = options;
       }
-      block.inputList[0].fieldRow[0].menuGenerator_ = options;
     }
-  }
-  if (block.parentBlock_.parentBlock_.type === "message") {
-    const { messages } = spec.components;
-    if (messages && Object.keys(messages).length > 0) {
-      const options = [];
-      for (const key in messages) {
-        const res = [key, `#/components/messages/${key}`];
-        options.push(res);
+    if (block.parentBlock_.parentBlock_.type === "message") {
+      const { messages } = spec.components;
+      if (messages && Object.keys(messages).length > 0) {
+        const options = [];
+        for (const key in messages) {
+          const res = [key, `#/components/messages/${key}`];
+          options.push(res);
+        }
+        block.inputList[0].fieldRow[0].menuGenerator_ = options;
       }
-      block.inputList[0].fieldRow[0].menuGenerator_ = options;
     }
-  }
-  if (block.parentBlock_.parentBlock_.type === "parameters") {
-    const { parameters } = spec.components;
-    if (parameters && Object.keys(parameters).length > 0) {
-      const options = [];
-      for (const key in parameters) {
-        const res = [key, `#/components/parameters/${key}`];
-        options.push(res);
+    if (block.parentBlock_.parentBlock_.parentBlock_.type === "parameters") {
+      const { parameters } = spec.components;
+      if (parameters && Object.keys(parameters).length > 0) {
+        const options = [];
+        for (const key in parameters) {
+          const res = [key, `#/components/parameters/${key}`];
+          options.push(res);
+        }
+        block.inputList[0].fieldRow[0].menuGenerator_ = options;
       }
-      block.inputList[0].fieldRow[0].menuGenerator_ = options;
     }
   }
 }

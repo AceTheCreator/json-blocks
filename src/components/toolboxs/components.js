@@ -173,6 +173,24 @@ export const properties = [
   },
 ];
 
+export const parameters = [
+  {
+    type: "string",
+    name: "description",
+  },
+  {
+    type: "object",
+    name: "schema",
+  },
+];
+
+export const paramSchema = [
+  {
+    type: "type",
+    name: "type",
+  },
+];
+
 export const dropDown = [
   {
     type: "dropDown",

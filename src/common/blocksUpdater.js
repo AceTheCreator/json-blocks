@@ -10,8 +10,15 @@ import {
   payload,
   objPayload,
   dropDown,
+  parameters,
+  paramSchema,
 } from "../components/toolboxs/components";
-import { channelName, channel } from "../components/toolboxs/channels";
+import {
+  channelName,
+  channel,
+  params,
+  ref,
+} from "../components/toolboxs/channels";
 
 export default function blocksUpdater(block, workspace) {
   const active = localStorage.getItem("activeBlock");
@@ -60,7 +67,13 @@ export default function blocksUpdater(block, workspace) {
         if (block.parentBlock_.type === "schemas") {
           blocks = schema;
         }
+        if (block.parentBlock_.type === "parameters") {
+          blocks = parameters;
+        }
       }
+    }
+    if (block.type === "schema") {
+      blocks = paramSchema;
     }
     if (block.type === "payload") {
       blocks = payload;
@@ -78,6 +91,15 @@ export default function blocksUpdater(block, workspace) {
     }
     if (block.type === "customBlock") {
       blocks = channel;
+    }
+    if (block.type === "parameters") {
+      blocks = params;
+    }
+    if (block.type === "customObjDropdown") {
+      blocks = ref;
+    }
+    if (block.type === "$ref") {
+      blocks = dropDown;
     }
   }
   blockGenerator(block, blocks, workspace);

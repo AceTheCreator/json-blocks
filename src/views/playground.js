@@ -43,7 +43,10 @@ function Playground({ toolBox }) {
       if (selectedBlock) {
         blockFormatter(selectedBlock);
         blockUpdater(selectedBlock, workspace);
-        if (selectedBlock.blockType === "dropDown") {
+        if (
+          selectedBlock.blockType === "dropDown" ||
+          selectedBlock.type === "customObjDropdown"
+        ) {
           dropDownPopulator(selectedBlock);
         }
       }
