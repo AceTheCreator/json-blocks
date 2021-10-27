@@ -16,7 +16,7 @@ import "../components/blocks/optionals";
 import { PlaygroundContainer, PlaygroundWrapper } from "./views.style";
 import toolBoxUpdater from "../common/toolboxUpdater";
 import blockUpdater from "../common/blocksUpdater";
-import { blockFormatter } from "../common/interpreter";
+import { blockFormatter, dropDownPopulator } from "../common/interpreter";
 
 // eslint-disable-next-line react/prop-types
 function Playground({ toolBox }) {
@@ -42,9 +42,10 @@ function Playground({ toolBox }) {
       }
       if (selectedBlock) {
         blockFormatter(selectedBlock);
-      }
-      if (selectedBlock) {
         blockUpdater(selectedBlock, workspace);
+        if (selectedBlock.blockType === "dropDown") {
+          dropDownPopulator(selectedBlock);
+        }
       }
       if (
         selectedBlock &&

@@ -61,6 +61,7 @@ export const variables = [
   {
     type: "array",
     name: "security",
+    disabled: "true",
     connections: ["variables"],
   },
 ];

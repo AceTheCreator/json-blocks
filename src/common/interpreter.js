@@ -1,3 +1,5 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-use-before-define */
 /* eslint-disable consistent-return */
 /* eslint-disable no-plusplus */
@@ -74,7 +76,18 @@ function blockIterator(block, hold) {
           }
           for (let j = 0; j < blocks[i].childBlocks_.length; j++) {
             const blk = blocks[i].childBlocks_;
-            hold[blocks[i].type].push(blk[j].inputList[0].fieldRow[0].value_);
+            if (blocks[i].isNested) {
+              const newObj = {};
+              if (blk[j].childBlocks_.length > 0) {
+                newObj[blk[j].type] =
+                  blk[j].childBlocks_[0].inputList[0].fieldRow[0].value_;
+              } else {
+                newObj[blk[j].type] = null;
+              }
+              hold[blocks[i].type].push(newObj);
+            } else {
+              hold[blocks[i].type].push(blk[j].inputList[0].fieldRow[0].value_);
+            }
           }
         } else if (
           blocks[i].childBlocks_ &&
@@ -119,24 +132,52 @@ function generator(block) {
   }
 }
 
-// function childSchema(blocks, block) {
-//   for (let i = 0; i < blocks.length; i++) {
-//     if (blocks[i].check === "field") {
-//       const value = {};
-//       value[block.type] = blocks[i].inputList[0].fieldRow[0].value_;
-//       return value;
-//     }
-//   }
-// }
-
-// export function dummySchema(block) {
-//   let input = "";
-//   if (block.check === "field") {
-//     input = block.inputList[0].fieldRow[0].value_;
-//     console.log(block.parentBlock_);
-//     if (block.parentBlock_) {
-//       console.log(block.parentBlock_);
-//     }
-//   }
-//   console.log(block);
-// }
+export function dropDownPopulator(block) {
+  if (block.parentBlock_) {
+    if (block.parentBlock_.parentBlock_.type === "payload") {
+      // Find data from the schema objects
+      const { schemas } = spec.components;
+      if (schemas && Object.keys(schemas).length > 0) {
+        const options = [];
+        for (const key in schemas) {
+          const res = [key, `#/components/schemas/${key}`];
+          options.push(res);
+        }
+        block.inputList[0].fieldRow[0].menuGenerator_ = options;
+      }
+    }
+  }
+  if (block.parentBlock_.parentBlock_.type === "traits") {
+    const { messageTraits } = spec.components;
+    if (messageTraits && Object.keys(messageTraits).length > 0) {
+      const options = [];
+      for (const key in messageTraits) {
+        const res = [key, `#/components/messageTraits/${key}`];
+        options.push(res);
+      }
+      block.inputList[0].fieldRow[0].menuGenerator_ = options;
+    }
+  }
+  if (block.parentBlock_.parentBlock_.type === "message") {
+    const { messages } = spec.components;
+    if (messages && Object.keys(messages).length > 0) {
+      const options = [];
+      for (const key in messages) {
+        const res = [key, `#/components/messages/${key}`];
+        options.push(res);
+      }
+      block.inputList[0].fieldRow[0].menuGenerator_ = options;
+    }
+  }
+  if (block.parentBlock_.parentBlock_.type === "parameters") {
+    const { parameters } = spec.components;
+    if (parameters && Object.keys(parameters).length > 0) {
+      const options = [];
+      for (const key in parameters) {
+        const res = [key, `#/components/parameters/${key}`];
+        options.push(res);
+      }
+      block.inputList[0].fieldRow[0].menuGenerator_ = options;
+    }
+  }
+}

@@ -56,6 +56,14 @@ export const custom = [
   {
     type: "custom",
     name: "customBlock",
+    connections: [
+      "messages",
+      "schemas",
+      "messageTraits",
+      "parameters",
+      "operationTraits",
+      "securitySchemes",
+    ],
     isCustom: true,
   },
 ];
@@ -84,6 +92,7 @@ export const message = [
   {
     type: "array",
     name: "traits",
+    isNested: true,
     connections: ["customBlock"],
   },
 ];
@@ -103,9 +112,17 @@ export const schema = [
 
 export const payload = [
   {
-    type: "string",
-    name: "ref",
+    type: "ref",
+    name: "$ref",
     connections: ["payload"],
+  },
+];
+// Needs enhancement
+export const objPayload = [
+  {
+    type: "refObj",
+    name: "$ref",
+    connections: ["traits"],
   },
 ];
 
@@ -113,6 +130,7 @@ export const ref = [
   {
     type: "block",
     name: "messagePayloads",
+    connections: [""],
   },
 ];
 
@@ -152,5 +170,12 @@ export const properties = [
   {
     type: "block",
     name: "format",
+  },
+];
+
+export const dropDown = [
+  {
+    type: "dropDown",
+    name: "dropDown",
   },
 ];

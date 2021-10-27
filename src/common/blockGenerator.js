@@ -15,8 +15,11 @@ export default function blockGenerator(selected, blocks, workspace) {
         if (bloc.type === "custom") {
           customBlock(bloc.name);
         }
-        if (bloc.type === "string") {
+        if (bloc.type === "string" || bloc.type === "ref") {
           stringBlock(bloc.name);
+        }
+        if (bloc.type === "refObj") {
+          refObjBlock(bloc.name);
         }
         if (bloc.type === "number") {
           numberBlock(bloc.name);
@@ -27,11 +30,16 @@ export default function blockGenerator(selected, blocks, workspace) {
         if (bloc.type === "array") {
           arrayBlock(bloc.name);
         }
+        if (bloc.type === "dropDown") {
+          dropDownBlock(bloc.name);
+        }
         // eslint-disable-next-line no-shadow
         Blockly.JavaScript[bloc.name] = function (block) {
           if (bloc.type !== "custom") {
             block.blockType = bloc.type;
           }
+          block.isNested = bloc.isNested;
+          block.disabled = bloc.disabled;
           block.isCustom = bloc.isCustom;
           block.check = bloc.check;
           block.connections = bloc.connections;
@@ -49,6 +57,7 @@ export default function blockGenerator(selected, blocks, workspace) {
         toolbox.contents.push({
           kind: "block",
           type: block.name,
+          disabled: block.disabled,
         });
       }
     }
@@ -75,6 +84,14 @@ function stringBlock(name) {
       this.appendValueInput("NAME").setCheck("String").appendField(name);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
+    },
+  };
+}
+function refObjBlock(name) {
+  Blockly.Blocks[name] = {
+    init() {
+      this.appendValueInput("NAME").setCheck("String").appendField(name);
+      this.setOutput(true, "String");
     },
   };
 }
@@ -124,6 +141,17 @@ function customBlock(block) {
       this.appendStatementInput("custom").setCheck(null);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
+    },
+  };
+}
+
+function dropDownBlock(block) {
+  Blockly.Blocks[block] = {
+    init() {
+      this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldDropdown([["", ""]]), block);
+      this.setOutput(true, "String");
     },
   };
 }

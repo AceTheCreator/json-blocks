@@ -8,10 +8,11 @@ import {
   message,
   schema,
   payload,
+  objPayload,
+  dropDown,
 } from "../components/toolboxs/components";
 
 export default function blocksUpdater(block, workspace) {
-  console.log(block);
   const active = localStorage.getItem("activeBlock");
   let blocks;
   if (active === "Info") {
@@ -62,6 +63,12 @@ export default function blocksUpdater(block, workspace) {
     }
     if (block.type === "payload") {
       blocks = payload;
+    }
+    if (block.type === "traits") {
+      blocks = objPayload;
+    }
+    if (block.type === "$ref") {
+      blocks = dropDown;
     }
   }
   blockGenerator(block, blocks, workspace);
