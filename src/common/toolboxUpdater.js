@@ -1,6 +1,10 @@
 /* eslint-disable import/named */
 /* eslint-disable no-unused-vars */
-import { numberToolbox, textToolbox } from "../components/toolboxs/fields";
+import {
+  numberToolbox,
+  textToolbox,
+  floatToolbox,
+} from "../components/toolboxs/fields";
 import { lisenceContent, infoContent } from "../components/toolboxs/info";
 import {
   prodContent,
@@ -23,6 +27,10 @@ export default function toolBoxUpdater(workspace, block) {
   let content;
   if (block.blockType === "number") {
     content = numberToolbox;
+    workspace.updateToolbox(content);
+  }
+  if (block.blockType === "float") {
+    content = floatToolbox;
     workspace.updateToolbox(content);
   }
   if (block.blockType === "string" || block.type === "enum") {

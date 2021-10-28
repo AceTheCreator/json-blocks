@@ -8,6 +8,8 @@
 /* eslint-disable import/prefer-default-export */
 import spec from "../data/spec";
 
+const active = localStorage.getItem("activeBlock");
+
 export function validateSchema(block) {
   if (block.childBlocks_ && Object.keys(block.childBlocks_).length > 0) {
     const blocks = block.childBlocks_;
@@ -136,8 +138,8 @@ function generator(block) {
 
 export function dropDownPopulator(block) {
   if (block.parentBlock_) {
-    if (block.parentBlock_.type === "parameters") {
-      if (spec.components) {
+    if (spec.components) {
+      if (block.parentBlock_.type === "parameters") {
         const { parameters } = spec.components;
         if (parameters && Object.keys(parameters).length > 0) {
           const options = [];
@@ -148,50 +150,64 @@ export function dropDownPopulator(block) {
           block.inputList[0].fieldRow[0].menuGenerator_ = options;
         }
       }
-    }
-    if (block.parentBlock_.parentBlock_.type === "payload") {
-      // Find data from the schema objects
-      const { schemas } = spec.components;
-      if (schemas && Object.keys(schemas).length > 0) {
-        const options = [];
-        for (const key in schemas) {
-          const res = [key, `#/components/schemas/${key}`];
-          options.push(res);
+      if (block.parentBlock_.parentBlock_.type === "payload") {
+        // Find data from the schema objects
+        const { schemas } = spec.components;
+        if (schemas && Object.keys(schemas).length > 0) {
+          const options = [];
+          for (const key in schemas) {
+            const res = [key, `#/components/schemas/${key}`];
+            options.push(res);
+          }
+          block.inputList[0].fieldRow[0].menuGenerator_ = options;
         }
-        block.inputList[0].fieldRow[0].menuGenerator_ = options;
       }
-    }
-    if (block.parentBlock_.parentBlock_.type === "traits") {
-      const { messageTraits } = spec.components;
-      if (messageTraits && Object.keys(messageTraits).length > 0) {
-        const options = [];
-        for (const key in messageTraits) {
-          const res = [key, `#/components/messageTraits/${key}`];
-          options.push(res);
+      if (block.parentBlock_.parentBlock_.type === "traits") {
+        const { messageTraits } = spec.components;
+        const { operationTraits } = spec.components;
+        if (active === "Components") {
+          console.log("Okka");
+          if (messageTraits && Object.keys(messageTraits).length > 0) {
+            const options = [];
+            for (const key in messageTraits) {
+              const res = [key, `#/components/messageTraits/${key}`];
+              options.push(res);
+            }
+            block.inputList[0].fieldRow[0].menuGenerator_ = options;
+          }
+        } else if (operationTraits && Object.keys(operationTraits).length > 0) {
+          const options = [];
+          for (const key in operationTraits) {
+            const res = [key, `#/components/operationTraits/${key}`];
+            options.push(res);
+          }
+          block.inputList[0].fieldRow[0].menuGenerator_ = options;
         }
-        block.inputList[0].fieldRow[0].menuGenerator_ = options;
       }
-    }
-    if (block.parentBlock_.parentBlock_.type === "message") {
-      const { messages } = spec.components;
-      if (messages && Object.keys(messages).length > 0) {
-        const options = [];
-        for (const key in messages) {
-          const res = [key, `#/components/messages/${key}`];
-          options.push(res);
+      if (block.parentBlock_.parentBlock_.type === "message") {
+        const { messages } = spec.components;
+        if (messages && Object.keys(messages).length > 0) {
+          const options = [];
+          for (const key in messages) {
+            const res = [key, `#/components/messages/${key}`];
+            options.push(res);
+          }
+          block.inputList[0].fieldRow[0].menuGenerator_ = options;
         }
-        block.inputList[0].fieldRow[0].menuGenerator_ = options;
       }
-    }
-    if (block.parentBlock_.parentBlock_.parentBlock_.type === "parameters") {
-      const { parameters } = spec.components;
-      if (parameters && Object.keys(parameters).length > 0) {
-        const options = [];
-        for (const key in parameters) {
-          const res = [key, `#/components/parameters/${key}`];
-          options.push(res);
+      if (
+        block.parentBlock_.parentBlock_.parentBlock_ &&
+        block.parentBlock_.parentBlock_.parentBlock_.type === "parameters"
+      ) {
+        const { parameters } = spec.components;
+        if (parameters && Object.keys(parameters).length > 0) {
+          const options = [];
+          for (const key in parameters) {
+            const res = [key, `#/components/parameters/${key}`];
+            options.push(res);
+          }
+          block.inputList[0].fieldRow[0].menuGenerator_ = options;
         }
-        block.inputList[0].fieldRow[0].menuGenerator_ = options;
       }
     }
   }

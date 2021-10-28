@@ -63,6 +63,7 @@ function Playground({ toolBox, view }) {
     workspace.addChangeListener(onClick);
   }
   useEffect(() => {}, [toolBox]);
+  useEffect(() => {}, [view]);
   return (
     <>
       <PlaygroundWrapper>

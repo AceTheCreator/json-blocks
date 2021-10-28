@@ -29,6 +29,7 @@ export const component = [
   {
     type: "object",
     name: "securitySchemes",
+    disabled: true,
     connections: ["components"],
     standalone: true,
   },

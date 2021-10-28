@@ -23,3 +23,13 @@ export const numberToolbox = {
     },
   ],
 };
+
+export const floatToolbox = {
+  contents: [
+    blockTitle,
+    {
+      kind: "block",
+      type: "float",
+    },
+  ],
+};

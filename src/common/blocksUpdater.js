@@ -17,12 +17,21 @@ import {
   channelName,
   channel,
   params,
-  ref,
+  medium,
 } from "../components/toolboxs/channels";
 
 export default function blocksUpdater(block, workspace) {
   const active = localStorage.getItem("activeBlock");
   let blocks;
+  if (block.type === "traits") {
+    blocks = objPayload;
+  }
+  if (block.type === "$ref") {
+    blocks = dropDown;
+  }
+  if (block.type === "payload" || block.type === "message") {
+    blocks = payload;
+  }
   if (active === "Info") {
     if (block.type === "info") {
       blocks = info;
@@ -75,15 +84,6 @@ export default function blocksUpdater(block, workspace) {
     if (block.type === "schema") {
       blocks = paramSchema;
     }
-    if (block.type === "payload") {
-      blocks = payload;
-    }
-    if (block.type === "traits") {
-      blocks = objPayload;
-    }
-    if (block.type === "$ref") {
-      blocks = dropDown;
-    }
   }
   if (active === "Channels") {
     if (block.type === "channels") {
@@ -96,10 +96,7 @@ export default function blocksUpdater(block, workspace) {
       blocks = params;
     }
     if (block.type === "customObjDropdown") {
-      blocks = ref;
-    }
-    if (block.type === "$ref") {
-      blocks = dropDown;
+      blocks = medium;
     }
   }
   blockGenerator(block, blocks, workspace);

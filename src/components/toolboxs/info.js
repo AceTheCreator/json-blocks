@@ -21,7 +21,7 @@ export const info = [
   },
   {
     name: "version",
-    type: "string",
+    type: "float",
     connections: ["info"],
   },
   {

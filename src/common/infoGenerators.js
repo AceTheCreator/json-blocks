@@ -51,3 +51,7 @@ Blockly.JavaScript.url = function (block) {
 Blockly.JavaScript.math_number = function (block) {
   return null;
 };
+
+Blockly.JavaScript.float = function (block) {
+  return null;
+};
