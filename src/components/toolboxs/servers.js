@@ -15,16 +15,11 @@ export const serverToolbox = {
 
 export const server = [
   {
-    name: "production",
-    type: "object",
-    standalone: true,
+    type: "custom",
+    name: "customBlock",
     connections: ["servers"],
-  },
-  {
-    name: "development",
-    type: "object",
+    isCustom: true,
     standalone: true,
-    connections: ["servers"],
   },
 ];
 
@@ -33,22 +28,23 @@ export const prod = [
   {
     name: "url",
     type: "url",
-    connections: ["production", "development"],
+    connections: ["customBlock"],
   },
   {
     name: "protocol",
     type: "string",
-    connections: ["production", "development"],
+    connections: ["customBlock"],
   },
   {
     name: "description",
     type: "string",
-    connections: ["production", "development"],
+    connections: ["customBlock"],
   },
   {
-    name: "variables",
-    type: "object",
-    connections: ["production", "development"],
+    type: "custom",
+    name: "customBlock",
+    connections: "customBlock",
+    isCustom: true,
   },
 ];
 
@@ -56,13 +52,13 @@ export const variables = [
   {
     name: "port",
     type: "object",
-    connections: ["variables"],
+    connections: ["customBlock"],
   },
   {
     type: "array",
     name: "security",
     disabled: "true",
-    connections: ["variables"],
+    connections: ["customBlock"],
   },
 ];
 

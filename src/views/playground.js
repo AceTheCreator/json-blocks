@@ -33,6 +33,7 @@ function Playground({ toolBox, view }) {
     function onClick(event) {
       const selectedBlock = workspace.getBlockById(event.blockId);
       if (selectedBlock && selectedBlock.isCustom) {
+        console.log("Okk");
         if (selectedBlock.parentBlock_ && !selectedBlock.blockType) {
           selectedBlock.blockType = "object";
           selectedBlock.loc = selectedBlock.parentBlock_.type;

@@ -44,11 +44,14 @@ export default function blocksUpdater(block, workspace) {
     if (block.type === "servers") {
       blocks = server;
     }
-    if (block.type === "production" || block.type === "development") {
-      blocks = prod;
-    }
-    if (block.type === "variables") {
-      blocks = variables;
+    if (block.type === "customBlock") {
+      if (block.parentBlock_) {
+        if (block.parentBlock_.type === "servers") {
+          blocks = prod;
+        } else {
+          blocks = variables;
+        }
+      }
     }
     if (block.type === "port") {
       blocks = port;

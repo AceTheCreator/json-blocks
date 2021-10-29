@@ -45,7 +45,7 @@ function newFormat(block) {
     const { connections } = block;
     for (let i = 0; i < connections.length; i++) {
       if (hold && hold.type !== connections[i]) {
-        if (hold.parentBlock_.type === connections[i]) {
+        if (hold.parentBlock_ && hold.parentBlock_.type === connections[i]) {
           const nextHold = hold.parentBlock_;
           block.parentBlock_ = nextHold;
           nextHold.childBlocks_.push(block);
