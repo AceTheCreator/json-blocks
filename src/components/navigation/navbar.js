@@ -17,7 +17,6 @@ import { componentToolbox } from "../toolboxs/components";
 import { channelsToolbox } from "../toolboxs/channels";
 import { updateActiveBar } from "../../utils";
 
-const localActive = localStorage.getItem("activeBlock");
 function Navbar({ setToolbox, view, setView, active, setActive }) {
   useEffect(() => {
     if (active === "Info") {
@@ -33,12 +32,6 @@ function Navbar({ setToolbox, view, setView, active, setActive }) {
     }
     updateActiveBar(active);
   }, [active]);
-  useEffect(() => {
-    console.log(localActive, active);
-    if (localActive !== active) {
-      setActive(localActive);
-    }
-  }, [localActive]);
   return (
     <NavbarWrapper>
       <LeftNavLink>

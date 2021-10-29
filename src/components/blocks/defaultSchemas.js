@@ -1,5 +1,31 @@
 import Blockly from "blockly";
 
+Blockly.Blocks.components = {
+  init() {
+    this.appendDummyInput().appendField("components");
+    this.appendStatementInput("components").setCheck(null);
+  },
+};
+Blockly.Blocks.channels = {
+  init() {
+    this.appendDummyInput().appendField("channels");
+    this.appendStatementInput("channels").setCheck(null);
+  },
+};
+
+Blockly.Blocks.info = {
+  init() {
+    this.appendDummyInput().appendField("Info");
+    this.appendStatementInput("Info").setCheck(null);
+  },
+};
+Blockly.Blocks.servers = {
+  init() {
+    this.appendDummyInput().appendField("servers");
+    this.appendStatementInput("servers").setCheck(null);
+  },
+};
+
 Blockly.Blocks.text_input = {
   init() {
     this.appendDummyInput()
