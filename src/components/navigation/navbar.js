@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   CenterNavLink,
@@ -15,9 +15,10 @@ import { serverToolbox } from "../toolboxs/servers";
 import { defaultToolbox } from "../toolboxs/default";
 import { componentToolbox } from "../toolboxs/components";
 import { channelsToolbox } from "../toolboxs/channels";
+import { updateActiveBar } from "../../utils";
 
-function Navbar({ setToolbox, view, setView }) {
-  const [active, setActive] = useState(null);
+const localActive = localStorage.getItem("activeBlock");
+function Navbar({ setToolbox, view, setView, active, setActive }) {
   useEffect(() => {
     if (active === "Info") {
       setToolbox(infoToolbox);
@@ -30,11 +31,14 @@ function Navbar({ setToolbox, view, setView }) {
     } else {
       setToolbox(defaultToolbox);
     }
-    function setActiveToLocal(value) {
-      localStorage.setItem("activeBlock", value);
-    }
-    setActiveToLocal(active);
+    updateActiveBar(active);
   }, [active]);
+  useEffect(() => {
+    console.log(localActive, active);
+    if (localActive !== active) {
+      setActive(localActive);
+    }
+  }, [localActive]);
   return (
     <NavbarWrapper>
       <LeftNavLink>
@@ -100,5 +104,7 @@ Navbar.propTypes = {
   setToolbox: PropTypes.func.isRequired,
   view: PropTypes.object.isRequired,
   setView: PropTypes.func.isRequired,
+  active: PropTypes.string.isRequired,
+  setActive: PropTypes.func.isRequired,
 };
 export default Navbar;

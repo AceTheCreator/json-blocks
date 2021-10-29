@@ -17,10 +17,11 @@ import { PlaygroundContainer, PlaygroundWrapper } from "./views.style";
 import toolBoxUpdater from "../common/toolboxUpdater";
 import blockUpdater from "../common/blocksUpdater";
 import { blockFormatter, dropDownPopulator } from "../common/interpreter";
+import topBlockUpdater from "../common/topBlockUpdater";
 
 const Preview = lazy(() => import("./preview"));
 // eslint-disable-next-line react/prop-types
-function Playground({ toolBox, view }) {
+function Playground({ toolBox, view, setActive }) {
   // eslint-disable-next-line no-unused-vars
   const [xml, setXml] = useState("");
   // eslint-disable-next-line no-unused-vars
@@ -33,7 +34,6 @@ function Playground({ toolBox, view }) {
     function onClick(event) {
       const selectedBlock = workspace.getBlockById(event.blockId);
       if (selectedBlock && selectedBlock.isCustom) {
-        console.log("Okk");
         if (selectedBlock.parentBlock_ && !selectedBlock.blockType) {
           selectedBlock.blockType = "object";
           selectedBlock.loc = selectedBlock.parentBlock_.type;
@@ -43,6 +43,7 @@ function Playground({ toolBox, view }) {
       }
       if (selectedBlock) {
         blockFormatter(selectedBlock);
+        topBlockUpdater(selectedBlock, setActive);
         blockUpdater(selectedBlock, workspace);
         if (
           selectedBlock.blockType === "dropDown" ||

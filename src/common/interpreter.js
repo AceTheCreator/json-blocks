@@ -132,7 +132,6 @@ function generator(block) {
     spec[block.type] = {};
     const hold = spec[block.type];
     blockIterator(block, hold);
-    console.log(spec);
   }
 }
 
@@ -166,7 +165,6 @@ export function dropDownPopulator(block) {
         const { messageTraits } = spec.components;
         const { operationTraits } = spec.components;
         if (active === "Components") {
-          console.log("Okka");
           if (messageTraits && Object.keys(messageTraits).length > 0) {
             const options = [];
             for (const key in messageTraits) {
