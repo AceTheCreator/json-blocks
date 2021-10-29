@@ -144,36 +144,43 @@ export const type = [
 
 export const properties = [
   {
-    type: "block",
+    type: "custom",
     name: "customBlock",
+    isCustom: true,
     connections: ["properties"],
-  },
-  {
-    type: "block",
-    name: "type",
-  },
-  {
-    type: "block",
-    name: "description",
-  },
-  {
-    type: "block",
-    name: "ref",
-  },
-  {
-    type: "block",
-    name: "enum",
-  },
-  {
-    type: "block",
-    name: "setVal",
-  },
-  {
-    type: "block",
-    name: "format",
   },
 ];
 
+export const propertiesDetails = [
+  {
+    type: "string",
+    name: "type",
+    connections: ["customBlock"],
+  },
+  {
+    type: "string",
+    name: "description",
+    connections: ["customBlock"],
+  },
+  {
+    type: "ref",
+    name: "$ref",
+    connections: ["customBlock"],
+  },
+  {
+    type: "array",
+    name: "enum",
+    connections: ["customBlock"],
+  },
+  // {
+  //   type: "block",
+  //   name: "setVal",
+  // },
+  // {
+  //   type: "block",
+  //   name: "format",
+  // },
+];
 export const parameters = [
   {
     type: "string",
@@ -192,6 +199,50 @@ export const paramSchema = [
   },
 ];
 
+export const typeValues = [
+  {
+    type: "dropDown",
+    name: "dropDown",
+    data: [
+      ["integer", "integer"],
+      ["object", "object"],
+      ["string", "string"],
+      ["array", "array"],
+      ["boolean", "boolean"],
+    ],
+  },
+];
+
+export const operationTraits = [
+  {
+    type: "custom",
+    name: "customObjDropdown",
+    isCustom: true,
+    data: [
+      ["mqtt", "mqtt"],
+      ["kafka", "kafka"],
+      ["amqp", "amqp"],
+      ["websocket", "websocket"],
+    ],
+    connections: ["operationTraits"],
+  },
+];
+
+export const operationProtocol = [
+  {
+    type: "object",
+    name: "bindings",
+    connections: ["customObjDropdown"],
+  },
+];
+
+export const protocolDetails = [
+  {
+    type: "string",
+    name: "clientId",
+    connections: ["customObjDropdown"],
+  },
+];
 export const dropDown = [
   {
     type: "dropDown",

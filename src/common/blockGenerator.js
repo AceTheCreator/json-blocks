@@ -31,7 +31,7 @@ export default function blockGenerator(selected, blocks, workspace) {
           arrayBlock(bloc.name);
         }
         if (bloc.type === "dropDown") {
-          dropDownBlock(bloc.name);
+          dropDownBlock(bloc);
         }
         // eslint-disable-next-line no-shadow
         Blockly.JavaScript[bloc.name] = function (block) {
@@ -149,11 +149,15 @@ function customBlock(block) {
 }
 
 function dropDownBlock(block) {
-  Blockly.Blocks[block] = {
+  Blockly.Blocks[block.name] = {
     init() {
+      let data = [["", ""]];
+      if (block.data) {
+        data = block.data;
+      }
       this.appendDummyInput()
         .appendField("")
-        .appendField(new Blockly.FieldDropdown([["", ""]]), block);
+        .appendField(new Blockly.FieldDropdown(data), block.name);
       this.setOutput(true, "String");
     },
   };

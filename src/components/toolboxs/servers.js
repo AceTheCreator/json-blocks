@@ -43,8 +43,21 @@ export const prod = [
   {
     type: "custom",
     name: "customBlock",
-    connections: "customBlock",
+    connections: ["customBlock"],
     isCustom: true,
+  },
+];
+
+export const protocolValues = [
+  {
+    type: "dropDown",
+    name: "dropDown",
+    data: [
+      ["mqtt", "mqtt"],
+      ["kafka", "kafka"],
+      ["amqp", "amqp"],
+      ["websocket", "websocket"],
+    ],
   },
 ];
 

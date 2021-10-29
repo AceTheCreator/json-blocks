@@ -18,17 +18,11 @@ Blockly.JavaScript.servers = function (block) {
 Blockly.JavaScript.components = function (block) {
   blockFormatter(block);
   block.blockType = "object";
-  if (!block.counter) {
-    block.counter = 0;
-  }
   return null;
 };
 Blockly.JavaScript.channels = function (block) {
   blockFormatter(block);
   block.blockType = "object";
-  if (!block.counter) {
-    block.counter = 0;
-  }
   return null;
 };
 

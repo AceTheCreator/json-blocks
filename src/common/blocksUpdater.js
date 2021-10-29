@@ -1,7 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 import blockGenerator from "./blockGenerator";
 import { info, license } from "../components/toolboxs/info";
-import { server, prod, variables, port } from "../components/toolboxs/servers";
+import {
+  server,
+  prod,
+  variables,
+  port,
+  protocolValues,
+} from "../components/toolboxs/servers";
 import {
   component,
   custom,
@@ -11,7 +17,13 @@ import {
   objPayload,
   dropDown,
   parameters,
+  typeValues,
+  operationTraits,
   paramSchema,
+  operationProtocol,
+  properties,
+  propertiesDetails,
+  protocolDetails,
 } from "../components/toolboxs/components";
 import {
   channelName,
@@ -53,6 +65,9 @@ export default function blocksUpdater(block, workspace) {
         }
       }
     }
+    if (block.type === "protocol") {
+      blocks = protocolValues;
+    }
     if (block.type === "port") {
       blocks = port;
     }
@@ -66,12 +81,11 @@ export default function blocksUpdater(block, workspace) {
       block.type === "schemas" ||
       block.type === "securitySchemes" ||
       block.type === "parameters" ||
-      block.type === "messageTraits" ||
-      block.type === "operationTraits"
+      block.type === "messageTraits"
     ) {
       blocks = custom;
     }
-    if (block.type === "customBlock") {
+    if (block.type === "customBlock" || block.type === "customObjDropdown") {
       if (block.parentBlock_) {
         if (block.parentBlock_.type === "messages") {
           blocks = message;
@@ -82,10 +96,28 @@ export default function blocksUpdater(block, workspace) {
         if (block.parentBlock_.type === "parameters") {
           blocks = parameters;
         }
+        if (block.parentBlock_.type === "operationTraits") {
+          blocks = operationProtocol;
+        }
+        if (block.parentBlock_.type === "bindings") {
+          blocks = protocolDetails;
+        }
+        if (block.parentBlock_.type === "properties") {
+          blocks = propertiesDetails;
+        }
       }
+    }
+    if (block.type === "properties") {
+      blocks = properties;
+    }
+    if (block.type === "operationTraits" || block.type === "bindings") {
+      blocks = operationTraits;
     }
     if (block.type === "schema") {
       blocks = paramSchema;
+    }
+    if (block.type === "type") {
+      blocks = typeValues;
     }
   }
   if (active === "Channels") {
@@ -99,7 +131,11 @@ export default function blocksUpdater(block, workspace) {
       blocks = params;
     }
     if (block.type === "customObjDropdown") {
-      blocks = medium;
+      if (block.parentBlock_ && block.parentBlock_.type === "customBlock") {
+        blocks = medium;
+      } else {
+        blocks = payload;
+      }
     }
   }
   blockGenerator(block, blocks, workspace);

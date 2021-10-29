@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable eqeqeq */
 /* eslint-disable no-underscore-dangle */
 import { useState, useEffect, lazy, Suspense } from "react";
 import { BlocklyWorkspace } from "react-blockly";
 import Blockly from "blockly";
 import "blockly/javascript_compressed";
-import "../components/blocks/defaultBlocks";
+import "../components/blocks/defaultSchemas";
 import "../components/blocks/componentSchema";
 import "../common/defaultGenerators";
 import { PlaygroundContainer, PlaygroundWrapper } from "./views.style";

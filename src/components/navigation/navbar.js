@@ -35,10 +35,14 @@ function Navbar({ setToolbox, view, setView, active, setActive }) {
   return (
     <NavbarWrapper>
       <LeftNavLink>
-        <NavButton>
+        <NavButton onClick={() => setActive(null)}>
           <div>
             {" "}
-            <span className="fi fi-br-menu-burger" />
+            {active ? (
+              <span className="fi fi-rr-cross-small" />
+            ) : (
+              <span className="fi fi-br-menu-burger" />
+            )}
           </div>
         </NavButton>
         <div>
