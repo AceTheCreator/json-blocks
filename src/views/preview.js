@@ -1,22 +1,30 @@
-import CodeMirror from "@uiw/react-codemirror";
-import "codemirror/keymap/sublime";
-import "codemirror/theme/dracula.css";
-import { javascript } from "@codemirror/lang-javascript";
+import Editor from "@monaco-editor/react";
 import { PreviewWrapper } from "./views.style";
 // eslint-disable-next-line no-unused-vars
 import spec from "../data/spec";
 
+function formatJSON(val) {
+  try {
+    const res = JSON.parse(val);
+    return JSON.stringify(res, null, 2);
+  } catch {
+    const errorJson = {
+      error: `非法返回${val}`,
+    };
+    return JSON.stringify(errorJson, null, 2);
+  }
+}
 function Preview() {
+  const data = JSON.stringify(spec);
   return (
     <PreviewWrapper>
-      <CodeMirror
-        value={JSON.stringify(spec)}
+      <Editor
         height="90vh"
-        extensions={[javascript({ json: true })]}
-        editable={false}
+        defaultLanguage="json"
+        theme="vs-dark"
+        value={formatJSON(data)}
         options={{
-          theme: "dracula",
-          keyMap: "sublime",
+          readOnly: true,
         }}
       />
     </PreviewWrapper>
