@@ -7,22 +7,58 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable import/prefer-default-export */
 import spec from "../data/spec";
+import errorPayload from "../data/errorPayloads";
 
 const active = localStorage.getItem("activeBlock");
 
-export function validateSchema(block) {
-  if (block.childBlocks_ && Object.keys(block.childBlocks_).length > 0) {
-    const blocks = block.childBlocks_;
-    if (Array.isArray(block.check)) {
-      const checks = block.check;
-      for (let i = 0; i < checks.length; i++) {
-        for (let j = 0; i < blocks.length; i++) {
-          if (blocks[j].type !== checks[j]) {
-            blocks[j].style.colourPrimary = "red";
-            blocks[j].style.colourSecondary = "red";
-          }
+const stack = [];
+
+function errorHandler(error, type) {
+  if (type === "remove") {
+    for (let i = 0; i < stack.length; i++) {
+      if (stack[i] === error) {
+        stack.splice(i, 1);
+      }
+    }
+  }
+  if (type === "add") {
+    if (stack.length < 1) {
+      stack.push(error);
+    } else {
+      for (let i = 0; i < stack.length; i++) {
+        if (stack[i] !== error) {
+          stack.push(error);
         }
       }
+    }
+  }
+}
+
+export default function validateSchema(block, workspace) {
+  if (!errorPayload[block.type] && block.checks) {
+    block.setColour("#dd4456");
+    errorPayload[block.type] = {
+      checks: block.checks,
+      id: block.id,
+      message: `${block.type} block requires the following block/blocks => ${block.checks}`,
+    };
+  }
+  if (block.parentBlock_ && block.parentBlock_.checks) {
+    if (!errorPayload[block.parentBlock_.type]) {
+      errorPayload[block.parentBlock_.type] = {
+        checks: block.parentBlock_.checks,
+        id: block.parentBlock_.id,
+        message: `${block.type} block requires the following block/blocks => ${block.checks}`,
+      };
+    }
+    const parent = block.parentBlock_;
+    const { checks } = errorPayload[parent.type];
+    if (checks.indexOf(block.type) !== -1) {
+      checks.splice(checks.indexOf(block.type), 1);
+    }
+    if (errorPayload[parent.type].checks.length < 1) {
+      const getBlock = workspace.getBlockById(errorPayload[parent.type].id);
+      getBlock.setColour("black");
     }
   }
 }
@@ -59,7 +95,6 @@ function newFormat(block) {
       }
     }
   }
-  validateSchema(block);
 }
 
 export function blockFormatter(block) {

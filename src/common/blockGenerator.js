@@ -42,8 +42,9 @@ export default function blockGenerator(selected, blocks, workspace) {
           block.disabled = bloc.disabled;
           block.isCustom = bloc.isCustom;
           block.isField = bloc.isField;
+          block.tooltip = bloc.message;
           block.data = bloc.data;
-          block.check = bloc.check;
+          block.checks = bloc.checks;
           block.connections = bloc.connections;
           block.standalone = bloc.standalone;
           return null;

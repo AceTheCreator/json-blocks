@@ -9,7 +9,10 @@ import "../common/defaultGenerators";
 import { PlaygroundContainer, PlaygroundWrapper } from "./views.style";
 import toolBoxUpdater from "../common/toolboxUpdater";
 import blockUpdater from "../common/blocksUpdater";
-import { blockFormatter, dropDownPopulator } from "../common/interpreter";
+import validateSchema, {
+  blockFormatter,
+  dropDownPopulator,
+} from "../common/interpreter";
 import topBlockUpdater from "../common/topBlockUpdater";
 
 const Preview = lazy(() => import("./preview"));
@@ -19,6 +22,7 @@ function Playground({ toolBox, view, setActive }) {
   const [xml, setXml] = useState("");
   // eslint-disable-next-line no-unused-vars
   const [javascriptCode, setJavascriptCode] = useState("");
+  const [previewWorkspace, setPreviewWorkspace] = useState(null);
   // eslint-disable-next-line no-unused-vars
   function workspaceDidChange(workspace) {
     const code = Blockly.JavaScript.workspaceToCode(workspace);
@@ -38,6 +42,7 @@ function Playground({ toolBox, view, setActive }) {
         blockFormatter(selectedBlock);
         topBlockUpdater(selectedBlock, setActive);
         blockUpdater(selectedBlock, workspace);
+        validateSchema(selectedBlock, workspace);
         if (
           selectedBlock.blockType === "dropDown" ||
           selectedBlock.type === "customObjDropdown"
@@ -56,6 +61,7 @@ function Playground({ toolBox, view, setActive }) {
       }
     }
     workspace.addChangeListener(onClick);
+    setPreviewWorkspace(workspace);
   }
   useEffect(() => {}, [toolBox]);
   useEffect(() => {}, [view]);
@@ -89,7 +95,7 @@ function Playground({ toolBox, view, setActive }) {
         </PlaygroundContainer>
         {view === "preview" && (
           <Suspense fallback={<div>loading</div>}>
-            <Preview />
+            <Preview workspace={previewWorkspace} />
           </Suspense>
         )}
       </PlaygroundWrapper>
