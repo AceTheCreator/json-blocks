@@ -30,6 +30,7 @@ Blockly.JavaScript.channels = function (block) {
   blockFormatter(block);
   block.blockType = "object";
   block.tooltip = "The available channels and messages for the API.";
+  block.checks = ["customBlock"];
   return null;
 };
 

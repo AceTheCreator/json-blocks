@@ -17,7 +17,9 @@ export const server = [
   {
     type: "custom",
     name: "customBlock",
+    message: "The name of your server. E.g Production.",
     connections: ["servers"],
+    checks: ["url", "protocol"],
     isCustom: true,
     standalone: true,
   },
@@ -28,21 +30,29 @@ export const prod = [
   {
     name: "url",
     type: "url",
+    message: "A URL to the target host",
+    checks: ["text_input"],
     connections: ["customBlock"],
   },
   {
     name: "protocol",
     type: "string",
+    checks: ["dropDown"],
+    message: "he protocol this URL supports for connection.",
     connections: ["customBlock"],
   },
   {
     name: "description",
     type: "string",
+    message: "An optional string describing the host designated by the URL.",
+    checks: ["text_input"],
     connections: ["customBlock"],
   },
   {
     type: "custom",
     name: "customBlock",
+    message:
+      "A map between a variable name and its value. The value is used for substitution in the server's URL template.",
     connections: ["customBlock"],
     isCustom: true,
   },
