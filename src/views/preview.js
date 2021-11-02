@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
@@ -21,25 +22,20 @@ function formatJSON(val) {
     return JSON.stringify(errorJson, null, 2);
   }
 }
-function Preview(workspace) {
+function Preview({ workspace, error }) {
   const [view, setView] = useState("editor");
   const [blockId, setBlockId] = useState(null);
   const data = JSON.stringify(spec);
   useEffect(() => {
-    if (Object.keys(errorPayload).length > 0) {
-      for (const key in errorPayload) {
-        if (errorPayload[key].checks.length > 0) {
-          setView("error");
-          break;
-        } else {
-          setView("priview");
-        }
-      }
-    }
-  }, [errorPayload]);
-  useEffect(() => {
-    workspace.workspace.highlightBlock(blockId);
+    workspace.highlightBlock(blockId);
   }, [blockId]);
+  useEffect(() => {
+    if (error) {
+      setView("error");
+    } else {
+      setView("editor");
+    }
+  }, [error]);
   if (view === "error") {
     return (
       <PreviewWrapper
@@ -53,24 +49,20 @@ function Preview(workspace) {
         </PreviewHeader>
         <OutsideClickHandler onOutsideClick={() => setBlockId("jdj")}>
           <ErrorLists>
-            {Object.keys(errorPayload).map((error) => {
-              let hold = 0;
-              console.log(hold);
-              if (errorPayload[error].checks.length > 0) {
-                hold += 1;
+            {Object.keys(errorPayload).map((payload) => {
+              if (errorPayload[payload].checks.length > 0) {
                 return (
                   <button
-                    key={error}
+                    key={payload}
                     onClick={() => {
-                      const { id } = errorPayload[error];
+                      const { id } = errorPayload[payload];
                       setBlockId(id);
                     }}
                   >
-                    <div>{errorPayload[error].message}</div>
+                    <div>{errorPayload[payload].message}</div>
                   </button>
                 );
               }
-              hold -= 1;
             })}
           </ErrorLists>
         </OutsideClickHandler>

@@ -129,3 +129,17 @@ export const CenterNavLinks = styled.button`
     margin-top: 3px;
   }
 `;
+
+export const ErrorCount = styled.div`
+  margin-top: -10px;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  border-radius: 50px;
+  background: #dd4456;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+`;

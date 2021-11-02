@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-underscore-dangle */
 import { useState, useEffect, lazy, Suspense } from "react";
 import { BlocklyWorkspace } from "react-blockly";
@@ -16,8 +17,14 @@ import validateSchema, {
 import topBlockUpdater from "../common/topBlockUpdater";
 
 const Preview = lazy(() => import("./preview"));
-// eslint-disable-next-line react/prop-types
-function Playground({ toolBox, view, setActive }) {
+function Playground({
+  toolBox,
+  view,
+  setActive,
+  setError,
+  setErrorCount,
+  error,
+}) {
   // eslint-disable-next-line no-unused-vars
   const [xml, setXml] = useState("");
   // eslint-disable-next-line no-unused-vars
@@ -30,6 +37,7 @@ function Playground({ toolBox, view, setActive }) {
     // eslint-disable-next-line no-restricted-globals
     function onClick(event) {
       const selectedBlock = workspace.getBlockById(event.blockId);
+      workspace.highlightBlock("blockId");
       if (selectedBlock && selectedBlock.isCustom) {
         if (selectedBlock.parentBlock_ && !selectedBlock.blockType) {
           selectedBlock.blockType = "object";
@@ -42,7 +50,7 @@ function Playground({ toolBox, view, setActive }) {
         blockFormatter(selectedBlock);
         topBlockUpdater(selectedBlock, setActive);
         blockUpdater(selectedBlock, workspace);
-        validateSchema(selectedBlock, workspace);
+        validateSchema(selectedBlock, workspace, setError, setErrorCount);
         if (
           selectedBlock.blockType === "dropDown" ||
           selectedBlock.type === "customObjDropdown"
@@ -65,6 +73,9 @@ function Playground({ toolBox, view, setActive }) {
   }
   useEffect(() => {}, [toolBox]);
   useEffect(() => {}, [view]);
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
   return (
     <>
       <PlaygroundWrapper>
@@ -95,7 +106,7 @@ function Playground({ toolBox, view, setActive }) {
         </PlaygroundContainer>
         {view === "preview" && (
           <Suspense fallback={<div>loading</div>}>
-            <Preview workspace={previewWorkspace} />
+            <Preview workspace={previewWorkspace} error={error} />
           </Suspense>
         )}
       </PlaygroundWrapper>
@@ -104,29 +115,3 @@ function Playground({ toolBox, view, setActive }) {
 }
 
 export default Playground;
-
-// const workspace = Blockly.inject("blocklyDiv", {
-//   plugins: {
-//     toolbox: ContinuousToolbox,
-//     flyoutsVerticalToolbox: ContinuousFlyout,
-//     metricsManager: ContinuousMetrics,
-//   },
-//   zoom: {
-//     controls: true,
-//     wheel: true,
-//     startScale: 1.0,
-//     maxScale: 3,
-//     minScale: 0.3,
-//     scaleSpeed: 1.2,
-//     pinch: true,
-//   },
-//   grid: {
-//     spacing: 20,
-//     length: 3,
-//     colour: "#ccc",
-//     snap: true,
-//   },
-//   toolbox: infoToolbox,
-//   trashcan: true,
-//   // ... your other options here ...
-// });
