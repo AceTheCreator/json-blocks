@@ -34,12 +34,7 @@ function errorHandler(error, type) {
   }
 }
 
-export default function validateSchema(
-  block,
-  workspace,
-  setError,
-  setErrorCount
-) {
+export default function validateSchema(block, workspace, setErrorCount) {
   if (!errorPayload[block.type] && block.checks) {
     block.setColour("#dd4456");
     errorPayload[block.type] = {
@@ -72,15 +67,11 @@ export default function validateSchema(
     for (const key in errorPayload) {
       if (errorPayload[key].checks.length > 0) {
         error = true;
-        localStorage.blockError = true;
         count += 1;
-        localStorage.errorCount = count;
       } else {
-        localStorage.blockError = false;
         error = false;
       }
     }
-    setError(error);
     setErrorCount(count);
   }
 }

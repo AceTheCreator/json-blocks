@@ -70,7 +70,11 @@ function Preview({ workspace, error }) {
     );
   }
   return (
-    <PreviewWrapper>
+    <PreviewWrapper
+      style={{
+        width: "60%",
+      }}
+    >
       <Editor
         height="90vh"
         defaultLanguage="json"

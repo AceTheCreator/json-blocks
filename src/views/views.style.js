@@ -12,9 +12,7 @@ export const PlaygroundContainer = styled.div`
   height: 90vh;
 `;
 
-export const PreviewWrapper = styled.div`
-  width: 70%;
-`;
+export const PreviewWrapper = styled.div``;
 
 export const PreviewHeader = styled.div`
   font-size: 18px;

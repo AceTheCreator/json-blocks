@@ -15,6 +15,7 @@ Blockly.JavaScript.info = function (block) {
 Blockly.JavaScript.servers = function (block) {
   blockFormatter(block);
   block.blockType = "object";
+  block.checks = ["customBlock"];
   block.tooltip = "Provides connection details of servers.";
   return null;
 };

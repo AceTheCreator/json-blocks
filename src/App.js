@@ -34,6 +34,7 @@ function App() {
         setErrorCount={setErrorCount}
         error={showError}
         toolBox={toolBox}
+        errCount={errorCount}
         view={view}
       />
     </div>

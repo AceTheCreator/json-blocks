@@ -18,15 +18,7 @@ import { componentToolbox } from "../toolboxs/components";
 import { channelsToolbox } from "../toolboxs/channels";
 import { updateActiveBar } from "../../utils";
 
-function Navbar({
-  setToolbox,
-  view,
-  setView,
-  active,
-  setActive,
-  showError,
-  errorCount,
-}) {
+function Navbar({ setToolbox, view, setView, active, setActive, errorCount }) {
   useEffect(() => {
     if (active === "Info") {
       setToolbox(infoToolbox);
@@ -93,7 +85,11 @@ function Navbar({
         >
           {view === "playground" ? (
             <div>
-              {showError && <ErrorCount>{errorCount}</ErrorCount>}
+              {errorCount ? (
+                <ErrorCount>{errorCount > 0 && errorCount}</ErrorCount>
+              ) : (
+                ""
+              )}
               <span className="fi fi-sr-play" />
             </div>
           ) : (
@@ -113,7 +109,6 @@ Navbar.propTypes = {
   setView: PropTypes.func.isRequired,
   active: PropTypes.string.isRequired,
   setActive: PropTypes.func.isRequired,
-  showError: PropTypes.bool.isRequired,
   errorCount: PropTypes.number,
 };
 export default Navbar;

@@ -17,11 +17,13 @@ export const info = [
   {
     name: "title",
     type: "string",
+    checks: ["text_input"],
     message: "The title of the application.",
     connections: ["info"],
   },
   {
     name: "version",
+    checks: ["text_input"],
     type: "string",
     message:
       "Provides the version of the application API (not to be confused with the specification version).",
@@ -30,6 +32,7 @@ export const info = [
   {
     name: "description",
     connections: ["info"],
+    checks: ["text_input"],
     message: "A short description of the application.",
     type: "string",
   },

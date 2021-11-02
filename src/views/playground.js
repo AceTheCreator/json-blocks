@@ -17,14 +17,7 @@ import validateSchema, {
 import topBlockUpdater from "../common/topBlockUpdater";
 
 const Preview = lazy(() => import("./preview"));
-function Playground({
-  toolBox,
-  view,
-  setActive,
-  setError,
-  setErrorCount,
-  error,
-}) {
+function Playground({ toolBox, view, setActive, setErrorCount, errCount }) {
   // eslint-disable-next-line no-unused-vars
   const [xml, setXml] = useState("");
   // eslint-disable-next-line no-unused-vars
@@ -50,7 +43,7 @@ function Playground({
         blockFormatter(selectedBlock);
         topBlockUpdater(selectedBlock, setActive);
         blockUpdater(selectedBlock, workspace);
-        validateSchema(selectedBlock, workspace, setError, setErrorCount);
+        validateSchema(selectedBlock, workspace, setErrorCount, errCount);
         if (
           selectedBlock.blockType === "dropDown" ||
           selectedBlock.type === "customObjDropdown"
@@ -73,9 +66,6 @@ function Playground({
   }
   useEffect(() => {}, [toolBox]);
   useEffect(() => {}, [view]);
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
   return (
     <>
       <PlaygroundWrapper>
@@ -106,7 +96,7 @@ function Playground({
         </PlaygroundContainer>
         {view === "preview" && (
           <Suspense fallback={<div>loading</div>}>
-            <Preview workspace={previewWorkspace} error={error} />
+            <Preview workspace={previewWorkspace} error={errCount} />
           </Suspense>
         )}
       </PlaygroundWrapper>
